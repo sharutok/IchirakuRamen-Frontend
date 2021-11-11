@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACE,IADE,CACF,MAAM,CAAC;EACL,KAAK,EAAE,IAAI;EACX,gBAAgB,EAAE,OAAkB;EACpC,MAAM,EAAE,OAAO;EACf,aAAa,EAAE,GAAG;EAClB,WAAW,EAAE,IAAI;CAClB;;AAEH,AAAA,cAAc,CAAC;EACb,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,EAAE;EACV,KAAK,EAAE,GAAG;CACX;;AACD,AAAA,OAAO,CAAC;EACN,WAAW,EAAE,IAAI;CAElB",
+    "sources": [
+        "VendorPortalAccVendorDetails.scss"
+    ],
+    "names": [],
+    "file": "VendorPortalAccVendorDetails.css"
+}

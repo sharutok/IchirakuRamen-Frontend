@@ -1,0 +1,19 @@
+.con button {
+  width: 5rem;
+  background-color: #c5c5c5;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 1rem;
+}
+
+.img-thumbnail {
+  position: absolute;
+  width: 30rem;
+  bottom: 1%;
+  right: 40%;
+}
+
+.status {
+  margin-left: 1rem;
+}
+/*# sourceMappingURL=VendorPortalAccVendorDetails.css.map */

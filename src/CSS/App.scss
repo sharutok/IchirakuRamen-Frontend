@@ -1,0 +1,29 @@
+.top-heading {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 5rem;
+  background: rgb(0, 0, 0);
+  background: rgb(0, 0, 0);
+  background: rgb(0, 0, 0);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(246, 61, 61, 1) 99%
+  );
+  h1 {
+    margin-left: -9rem;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+    margin-right: auto;
+    color: #ffffff;
+    font-size: 2rem;
+  }
+  img {
+    margin-right: auto;
+    width: auto;
+    padding: 0.5rem;
+  }
+  margin-bottom: 1.5rem;
+}

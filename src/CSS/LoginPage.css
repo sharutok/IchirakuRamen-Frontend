@@ -1,0 +1,45 @@
+.holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card {
+  padding: 2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 2px solid #726d6d;
+  background-color: #faedcd;
+  border-radius: 10px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-bottom: 1rem;
+  width: 7rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.card Button {
+  background-color: #e57373;
+}
+
+.card Button:hover {
+  background-color: #e68686;
+}
+/*# sourceMappingURL=LoginPage.css.map */
