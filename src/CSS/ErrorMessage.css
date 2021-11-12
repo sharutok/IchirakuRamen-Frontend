@@ -1,0 +1,17 @@
+h2 {
+  font-size: 1.8rem;
+}
+
+.dock {
+  font-size: 18px;
+  font-family: "Helvetica Neue", sans-serif;
+  height: 100%;
+}
+
+.dock h1,
+.dock h2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+/*# sourceMappingURL=ErrorMessage.css.map */

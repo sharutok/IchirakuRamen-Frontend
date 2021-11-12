@@ -9,6 +9,7 @@ import VendorPortalAccounts from "./VendorPortalAccounts";
 import VendorPortalAccVendorDetails from "./VendorPortalAccVendorDetails";
 import ResetPassword from "./ResetPassword";
 import VendorPortalVendor from "./VendorPortalVendor";
+import ErrorMessage from './ErrorMessage'
 import { Online, Offline } from "react-detect-offline";
 import InternetConnect from "./InternetConnect";
 import awl_logo from "../Images/AWL_logo_new.png";
@@ -30,10 +31,10 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/account/password/reset" element={<ResetPassword />} />
-            <Route path="/vendor_details" element={<VendorPortalVendor />} />
+            <Route path="/vendor_details/key" element={<VendorPortalVendor />} />
             <Route path="/acc" element={<VendorPortalAccounts />} />
             <Route path="/acc/:id" element={<VendorPortalAccVendorDetails />} />
-            <Route path="*" element={<h1>wrong address</h1>} />
+            <Route path="*" element={<ErrorMessage />} />
           </Routes>
         </Router>
       </Online>

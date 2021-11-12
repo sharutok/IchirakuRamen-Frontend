@@ -6,13 +6,16 @@ import {
   AiOutlineDelete,
   AiOutlineInfoCircle,
 } from "react-icons/ai";
+import { ImHome } from "react-icons/im"
+import { GoReport } from "react-icons/go"
 import { BiMailSend } from "react-icons/bi";
 import AccountMenu from "./AccountMenu";
-
 import "../CSS/VendorPortalAccounts.scss";
-
-
+import bcrypt from 'bcryptjs'
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 function VendorPortalAccounts() {
+
   let lastArrValue;
   let postsPerPage = 10;
   let pageArr = [];
@@ -51,7 +54,8 @@ function VendorPortalAccounts() {
   const getAllURL = `http://localhost:8080/vendor/`;
   const getSmartSearchURL = `http://localhost:8080/vendor/smartSearch/${smartSearch}`;
   const sendMailToVendor = `http://localhost:8080/send_email`; //BACKEND
-  const deleteURL = `http://localhost:8080/`;
+  const deleteURLVendor = `http://localhost:8080/vendor`;
+  const deleteURLImg = `http://localhost:8080/file-upload/img`;
   const getData = async () => {
     const res = await fetch(getAllURL);
     const data = await res.json();
@@ -106,13 +110,20 @@ function VendorPortalAccounts() {
     if (sendData.type === "send") {
       console.log(sendData.type);
       await axios.post(sendMailToVendor, sendData);
-      console.log(sendData);
+      // console.log(sendData);
+      setPopUp({
+        content: "",
+        condition: false,
+      });
     }
     if (sendData.type === "delete") {
-      console.log(sendData.type);
-      console.log(sendData);
-      console.log(`${deleteURL}${sendData.supplier_number}`);
-      await axios.delete(`${deleteURL}${sendData.supplier_number}`);
+      // console.log(sendData);
+      setPopUp({
+        content: "",
+        condition: false,
+      });
+      await axios.delete(`${deleteURLVendor}/${sendData.supplier_number}`);
+      await axios.delete(`${deleteURLImg}/${sendData.supplier_number}`)
     }
     setPopUp({
       content: "",
@@ -166,17 +177,19 @@ function VendorPortalAccounts() {
         <div className="bifercation">
 
           <div className="control-panel">
-            <Stack direction="row" spacing={1} className="log-out-menu"  >
+            <Stack direction="row" spacing={1}
+            // className="log-out-menu"
+            >
               <AccountMenu />
-              <Chip
+              {/* <Chip
                 className="log-out-menu-chip"
                 // avatar={<Avatar></Avatar>}
                 size="large"
                 label="Sharan Kudtarkar"
-              />
+              /> */}
               {/* <MoreVertIcon style={{ fontSize: "2rem" }} /> */}
             </Stack>
-            <h1>Control Panel</h1>
+            {/* <h1>Control Panel</h1> */}
             <h3
               onClick={() => {
                 setDisplay({
@@ -191,15 +204,19 @@ function VendorPortalAccounts() {
                   vendorMaster: true,
                 });
               }}
-              style={{
 
-                backgroundColor: active.vendorMaster && "black",
-                padding: active.vendorMaster && "0.5rem 1.5rem",
-                borderTopLeftRadius: active.vendorMaster && "100px",
-                borderBottomLeftRadius: active.vendorMaster && "100px",
-              }}
             >
-              Vendor Master
+              {/* Vendor Master */}
+              <Tooltip title="Vendor Master" placement="right" arrow>
+                <IconButton style={{
+                  color: active.vendorMaster && "#e7eaf6",
+                  backgroundColor: active.vendorMaster && "#113f67",
+                  borderRadius: active.vendorMaster && "5px"
+                }}>
+                  <ImHome />
+                </IconButton>
+              </Tooltip>
+
             </h3>
             {/* <h3
               onClick={() => {
@@ -235,14 +252,18 @@ function VendorPortalAccounts() {
                   status: true,
                 });
               }}
-              style={{
-                backgroundColor: active.status && "black",
-                borderTopLeftRadius: active.status && "100px",
-                borderBottomLeftRadius: active.status && "100px",
-                padding: active.status && "0.5rem 1.5rem",
-              }}
+
             >
-              Status
+              {/* Status */}
+              <Tooltip title="Status" placement="right" arrow>
+                <IconButton style={{
+                  color: active.status && "#e7eaf6",
+                  backgroundColor: active.status && "#113f67",
+                  borderRadius: active.status && "5px"
+                }}>
+                  <GoReport />
+                </IconButton>
+              </Tooltip>
             </h3>
           </div>
           <form className="right-view">
@@ -338,11 +359,14 @@ function Account_Page({
   sendData,
   setSendData,
 }) {
-  const portal_link = "http://localhost:3000/vendor_details"; //FRONTEND
+
+  let portal_link = `http://localhost:3000/vendor_details`; //FRONTEND
   function handleSendMail(vendor_email, supplier_number) {
+    let key = bcrypt.hashSync(supplier_number, 10)
+    portal_link = `${portal_link}/key?v=${key}`
     setPopUp({
       condition: true,
-      content: "Sure you want to send!!!",
+      content: `Sure you want to send ${vendor_email} !!! `,
     });
     setSendData({ vendor_email, supplier_number, portal_link, type: "send" });
   }
@@ -399,6 +423,7 @@ function Account_Page({
                 }}
               >
                 <BiMailSend />
+
                 <span
                   className="hover-message"
                   style={{ position: "absolute" }}

@@ -5,7 +5,7 @@ body {
 }
 
 .smart-search {
-  margin-left: 15rem;
+  margin-left: 5rem;
   margin-bottom: 2rem;
 }
 
@@ -16,13 +16,18 @@ body {
   width: 20rem;
 }
 
-.msme-heading {
-  position: absolute;
-  width: 50%;
-  left: 20rem;
-  bottom: 36rem;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+.log-out-menu {
+  background: #bbbbbb;
+  background: -webkit-gradient(linear, left top, right top, color-stop(43%, #bbbbbb), to(white));
+  background: linear-gradient(90deg, #bbbbbb 43%, white 100%);
+  border-radius: 5px;
+}
+
+.log-out-menu .log-out-menu-chip {
+  font-size: large;
+  margin-left: -1rem;
+  margin-top: 0.5rem;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .acc_page {
@@ -43,7 +48,7 @@ body {
   text-align: center;
   padding: 1px;
   border-radius: 0;
-  width: 10rem;
+  width: 12rem;
 }
 
 .acc_page .delete {
@@ -51,6 +56,7 @@ body {
   font-size: 1.2rem;
   color: #f05d5d;
   background-color: white;
+  margin: 0 0.7rem 0 0.7rem;
   -webkit-box-shadow: 5px 5px 20px #ebebeb;
           box-shadow: 5px 5px 20px #ebebeb;
 }
@@ -62,10 +68,12 @@ body {
   font-size: 1.2rem;
   -webkit-box-shadow: 5px 5px 20px #ebebeb;
           box-shadow: 5px 5px 20px #ebebeb;
+  margin: 0 0.7rem 0 0.7rem;
   text-decoration: none;
 }
 
 .acc_page .link-send {
+  margin: 0 0.7rem 0 0.7rem;
   background-color: white;
   padding: 0.3rem 0.7rem;
   font-size: 1.2rem;
@@ -126,7 +134,7 @@ body {
 .acc_page_label label {
   background-color: antiquewhite;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  width: 10rem;
+  width: 12rem;
   border-radius: 0;
 }
 
@@ -139,31 +147,36 @@ body {
 }
 
 .control-panel {
-  margin-top: -5.4rem;
+  margin-top: -5.5rem;
   border-top-right-radius: 5px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#fffc51), to(#fafdd8));
-  background-image: linear-gradient(#fffc51, #fafdd8);
+  background-color: #f8f398;
   -webkit-box-shadow: 5px 5px 20px #ebebeb;
           box-shadow: 5px 5px 20px #ebebeb;
   position: absolute;
-  padding: 1rem;
-  height: 80%;
+  height: 100%;
 }
 
 .control-panel h1 {
-  font-family: monospace;
+  padding: 2rem;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: xx-large;
+  text-transform: uppercase;
+  color: rebeccapurple;
 }
 
 .control-panel h3 {
-  font-size: x-large;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  color: #f3b360;
+  padding: 0.5rem;
+  font-size: xx-large;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  margin-left: 0.3rem;
   font-family: monospace;
+  text-transform: uppercase;
 }
 
 .control-panel h3:hover {
-  color: #f3b360;
+  color: #f8d0a3;
   cursor: pointer;
 }
 
@@ -175,7 +188,7 @@ body {
 }
 
 .right-view {
-  margin-left: 15rem;
+  margin-left: 5rem;
 }
 
 .acc-vendor-page {
@@ -251,18 +264,13 @@ body {
 }
 
 .pagination {
-  display: inline-block;
-  margin-top: 2rem;
-}
-
-.pagination {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 3rem;
+  margin: 3rem 0 3rem 0;
 }
 
 .pagination button {
@@ -280,7 +288,7 @@ body {
 
 .pagination button:hover {
   color: #575757;
-  background-color: var(--lgt-blue);
+  background-color: #dfd9d9;
   border-color: var(--lgt-blue);
 }
 
@@ -298,10 +306,31 @@ body {
 
 .popover {
   position: absolute;
-  background-color: #a7a1a1;
+  background-color: #dfd7d7;
   padding: 2rem;
-  border: 2px solid #58469b;
+  border: 5px solid #58469b;
   margin-left: 40%;
+  border-radius: 10px;
+  -webkit-animation: fadein 0.5s;
+          animation: fadein 0.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .popover .yesno {
@@ -314,25 +343,39 @@ body {
 }
 
 .popover .yes {
-  background-color: greenyellow;
-  padding: 0.5rem 1rem;
+  color: #4d4d4d;
+}
+
+.popover .yes,
+.popover .no {
+  font-weight: bolder;
+  padding: 0.5rem 1.5rem;
 }
 
 .popover .no {
-  background-color: red;
-  padding: 0.5rem 1rem;
+  color: red;
 }
 
 .popover button {
   cursor: pointer;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
+  background-color: #8dd2e4;
+}
+
+.popover button:hover {
+  -webkit-filter: brightness(80%);
+          filter: brightness(80%);
 }
 
 .popover button:active {
-  -webkit-box-shadow: 0 5px #666;
-          box-shadow: 0 5px #666;
+  -webkit-box-shadow: 0 2px #666;
+          box-shadow: 0 2px #666;
   -webkit-transform: translateY(2px);
           transform: translateY(2px);
+}
+
+.page {
+  font-weight: bold;
 }
 /*# sourceMappingURL=VendorPortalAccounts.css.map */

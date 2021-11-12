@@ -16,17 +16,18 @@ $fontweight: bolder;
   justify-content: flex-end;
 }
 .container {
-  background-color: rgba(0, 0, 0, 0.09);
+  // background-color: rgb(233, 233, 233);
   width: 70rem;
   padding: 2rem;
-  border: solid;
+  overflow: hidden;
+  // border: 2px solid;
   display: grid;
   grid-template-columns: 40rem 40rem;
   grid-row-gap: 1rem;
   margin-left: $margin-left;
   label {
-    color: firebrick;
-    font-family: $font;
+    color: rgb(0, 0, 0);
+    font-size: large;
     font-weight: $fontweight;
   }
   .con {
@@ -56,9 +57,10 @@ input {
 }
 
 .supplier_no_ip {
-  width: 23rem;
+  width: 10.5rem;
+  margin-left: $margin-left + 4rem;
   height: 2rem;
-  background-color: rgb(216, 213, 176);
+  background-color: rgb(235, 197, 197);
   font-family: $font;
 }
 
@@ -140,5 +142,24 @@ input[type="radio"] {
 
   label {
     margin-top: 0.7rem;
+  }
+}
+.con {
+  .img-thumbnails {
+    position: absolute;
+    right: 50%;
+    // bottom: 50%;
+    // button {
+    //   margin-top: 1rem;
+    //   left: 100%;
+    //   border-radius: 2px;
+    //   width: 3rem;
+    //   height: 2rem;
+    //   border: none;
+    //   color: red;
+    // }
+    // button:hover {
+    //   background-color: rgb(236, 106, 106);
+    // }
   }
 }

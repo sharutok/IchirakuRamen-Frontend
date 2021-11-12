@@ -42,4 +42,15 @@
 .card Button:hover {
   background-color: #e68686;
 }
+
+p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 20rem;
+  font-weight: bolder;
+}
 /*# sourceMappingURL=LoginPage.css.map */

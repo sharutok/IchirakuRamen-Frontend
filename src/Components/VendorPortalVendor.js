@@ -1,11 +1,17 @@
 import React from "react";
 import { useState } from "react";
-
+import queryString from 'query-string'
+import bcrypt from 'bcryptjs'
+import axios from "axios";
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { useLocation } from 'react-router-dom'
 import "../CSS/VendorPortalVendor.css";
 
-import axios from "axios";
 
 function VendorPortal_User() {
+  const { search } = useLocation()
+  const { v } = queryString.parse(search)
+  let key = v
   const [arrImg, setArrImg] = useState([])
   const [img, setImg] = useState("");
   const [imgShow, setImgShow] = useState(false);
@@ -26,6 +32,7 @@ function VendorPortal_User() {
     certificate_expiration_date: "",
     certificate_registration_date: "",
     upload_certificate: "",
+    remarks: "",
     status: "",
   });
   const [hide, setHide] = useState({
@@ -43,12 +50,6 @@ function VendorPortal_User() {
   const patchURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
   const uploadImag = `http://localhost:8080/file-upload/img/${vInfo.supplier_number}`;
   const getImg = `http://localhost:8080/file-upload/img/${vInfo.supplier_number}`
-
-  // let hashedSupplierNumber = brypt.hashSync(vInfo.supplier_number, 10)
-  // console.log(hashedSupplierNumber);
-
-  // let compareSupplierNumber = bcrypt.compareSync(vInfo.supplier_number, hashedSupplierNumber)
-  // console.log(compareSupplierNumber);
 
 
 
@@ -72,6 +73,7 @@ function VendorPortal_User() {
           certificate_registration_date: x.certificate_registration_date,
           upload_certificate: x.upload_certificate,
           status: x.status,
+          remarks: x.remarks
         });
       });
       console.log(vInfo);
@@ -90,6 +92,7 @@ function VendorPortal_User() {
         certificate_registration_date: "",
         upload_certificate: "",
         status: "",
+        remarks: ""
       });
 
       setMess({
@@ -102,13 +105,17 @@ function VendorPortal_User() {
     }
     const resImg = await fetch(getImg)
     const dataImg = await resImg.json()
-    // console.log(dataImg);
+
     setArrImg(dataImg)
   };
 
 
   const handleSearchClick = (e) => {
     e.preventDefault();
+
+    let checkSupplierNumber = bcrypt.compareSync(vInfo.supplier_number, key)
+    console.log(checkSupplierNumber);
+
     if (vInfo.supplier_number === "") {
       setMess({
         state: true,
@@ -117,59 +124,22 @@ function VendorPortal_User() {
       setTimeout(() => {
         setMess({ state: false, content: "" });
       }, 2000);
-    } else {
-      getData();
-    }
-  };
-  const deleteData = async () => {
-    try {
-      await axios.delete(deleteURL);
-      setMess({
-        content: `${vInfo.supplier_number} deleted`,
-      });
-      setTimeout(() => {
-        setMess({ content: "" });
-      }, 2000);
-      setVInfo({
-        supplier_number: "",
-        organization: "",
-        supplier_name: "",
-        type: "",
-        created_date: "",
-        inactive_date: "",
-        classification: "",
-        certificate_no: "",
-        certificate_agency: "",
-        certificate_expiration_date: "",
-        certificate_registration_date: "",
-        upload_certificate: "",
-        status: "",
-      });
-    } catch (error) {
-      setMess({
-        state: true,
-        content: `There is no Supplier number of ${vInfo.supplier_number} exist`,
-      });
-      setTimeout(() => {
-        setMess({ state: false, content: "" });
-      }, 2000);
-    }
-  };
 
-  // const handleDeleteClick = (e) => {
-  //   e.preventDefault();
-  //   if (vInfo.supplier_number === "") {
-  //     setMess({
-  //       state: true,
-  //       content: "There is no Supplier number mentioned !",
-  //     });
-  //     setTimeout(() => {
-  //       setMess({ state: false, content: "" });
-  //     }, 2000);
-  //   } else {
-  //     deleteData();
-  //   }
-  // };
+    }
+    else {
+      if (checkSupplierNumber) {
+        getData();
+      } else {
+        setMess({
+          state: true,
+          content: "Invalid Supplier number!! ",
+        });
+        setTimeout(() => {
+          setMess({ state: false, content: "" });
+        }, 2000);
+      }
+    }
+  };
 
   const handleUpdateClick = async (e) => {
     e.preventDefault();
@@ -207,7 +177,7 @@ function VendorPortal_User() {
         formData.append(`image_${i}`, arr[i]);
       }
       console.log(arr.length);
-      if (arr.length === 2) {
+      if (arr.length === 3) {
         console.log("sent");
         await axios.post(uploadImag, formData);
 
@@ -234,6 +204,7 @@ function VendorPortal_User() {
       arr.push(e.target.files[0]);
     }
   }
+
   return (
     <div>
       <>
@@ -252,7 +223,7 @@ function VendorPortal_User() {
           {vInfo.status && (
             <h1 className="status">
               Status-
-              {vInfo.status === "approved" ? (
+              {vInfo.status === "Approved" ? (
                 <span style={{ color: "green" }}>Approved</span>
               ) : (
                 <span style={{ color: "red" }}>Pending</span>
@@ -264,7 +235,7 @@ function VendorPortal_User() {
               <input
                 type="text"
                 autoComplete="off"
-                placeholder="Enter supplier number"
+                placeholder="Supplier number"
                 className="supplier_no_ip"
                 name="supplier_number"
                 onChange={handleChange}
@@ -420,31 +391,6 @@ function VendorPortal_User() {
               />
             </div>
 
-            {/* <div>
-              <label for="">Status</label>
-              <div className="radio">
-                <input
-                  type="radio"
-                  id="approved"
-                  disabled={hide.disabled}
-                  name="status"
-                  value="approved"
-                  onChange={handleChange}
-                />
-                <label>Approved</label>
-              </div>
-              <div className="radio">
-                <input
-                  type="radio"
-                  id="pending"
-                  name="status"
-                  disabled={hide.disabled}
-                  value="pending"
-                  onChange={handleChange}
-                />
-                <label>Pending</label>
-              </div>
-            </div> */}
             <div className="con">
               <label for="">GST Certificate</label>
               <input
@@ -469,9 +415,10 @@ function VendorPortal_User() {
               />
             </div>
             <div className="con">
+
               <label for="">GST Certificate</label>
-              {arrImg.img_2_data ? (
-                <div>
+              {arrImg.img_1_data ? (
+                <div className="certificate-config">
                   <a
                     href={`data:image/png;base64,${arrImg.img_1_data}`}
                     download={`${arrImg.img_1_name}.png`}
@@ -479,6 +426,7 @@ function VendorPortal_User() {
                     Download
                   </a>
                   <button
+                    className="preview"
                     type=""
                     onClick={(e) => {
                       e.preventDefault();
@@ -495,16 +443,14 @@ function VendorPortal_User() {
 
               {imgShow && (
                 <img
-                  className="img-thumbnail"
+                  className="img-thumbnails"
                   src={`data:image/png;base64,${img}`}
                   alt=""
                 />
               )}
-
-
               <label for="">MSMECertificate </label>
               {arrImg.img_2_data ? (
-                <div>
+                <div className="certificate-config">
                   <a
                     href={`data:image/png;base64,${arrImg.img_2_data}`}
                     download={`${arrImg.img_2_name}.png`}
@@ -512,6 +458,7 @@ function VendorPortal_User() {
                     Download
                   </a>
                   <button
+                    className="preview"
                     type=""
                     onClick={(e) => {
                       e.preventDefault();
@@ -526,30 +473,43 @@ function VendorPortal_User() {
                 <label for="">N/A</label>
               )}
               <label for=""> PAN CARD</label>
-              {arr.img_2_data ? (
+              {arrImg.img_3_data ? (
                 <div className="certificate-config">
                   <a
-                    href={`data:image/png;base64,${arr.img_2_data}`}
-                    download={`${arr.img_2_name}.png`}
+                    href={`data:image/png;base64,${arrImg.img_3_data}`}
+                    download={`${arrImg.img_3_name}.png`}
                   >
                     Download
                   </a>
                   <button
+                    className="preview"
                     type=""
                     onClick={(e) => {
                       e.preventDefault();
                       setImgShow(!imgShow);
-                      setImg(arr.img_2_data);
-
+                      setImg(arrImg.img_3_data);
                     }}
                   >
                     Preview
                   </button>
-
                 </div>
               ) : (
                 <label for="">N/A</label>
               )}
+
+            </div>
+            <div className="con ">
+
+              <label for="">Remarks</label>
+              <TextareaAutosize
+                type="text"
+                className=" remarks"
+                name="remarks"
+                disabled={hide.disabled}
+                value={vInfo.remarks}
+                onChange={handleChange}
+              />
+
             </div>
             <div>
 
@@ -570,13 +530,7 @@ function VendorPortal_User() {
                   Save
                 </button>
               )}
-              {/* <button
-                onClick={handleSendLink}
-                className="vendor_form_send_link"
-                type=""
-              >
-                Send link to vendor
-              </button> */}
+
               {
                 <button type="" className="vendor_form_del">
                   Cancel

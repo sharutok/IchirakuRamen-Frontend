@@ -12,10 +12,9 @@
 }
 
 .container {
-  background-color: #d5f7f4;
   width: 70rem;
   padding: 2rem;
-  border: solid;
+  overflow: hidden;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 40rem 40rem;
@@ -25,8 +24,8 @@
 }
 
 .container label {
-  color: firebrick;
-  font-family: "Comfortaa", cursive;
+  color: black;
+  font-size: large;
   font-weight: bolder;
 }
 
@@ -59,9 +58,10 @@ input {
 }
 
 .supplier_no_ip {
-  width: 23rem;
+  width: 10.5rem;
+  margin-left: 5rem;
   height: 2rem;
-  background-color: #d8d5b0;
+  background-color: #ebc5c5;
   font-family: "Comfortaa", cursive;
 }
 
@@ -155,4 +155,9 @@ input[type="radio"] {
 .radio label {
   margin-top: 0.7rem;
 }
-/*# sourceMappingURL=VendorPortal_User.css.map */
+
+.con .img-thumbnails {
+  position: absolute;
+  right: 50%;
+}
+/*# sourceMappingURL=VendorPortalVendor.css.map */

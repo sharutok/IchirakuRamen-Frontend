@@ -7,8 +7,8 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
-
-import { Avatar } from '@material-ui/core';
+import Popover from '@mui/material/Popover';
+import { Avatar, Menu } from '@material-ui/core';
 export default function AccountMenu() {
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
@@ -72,6 +72,7 @@ export default function AccountMenu() {
                 >
                     {({ TransitionProps, placement }) => (
                         <Grow
+
                             {...TransitionProps}
                             style={{
                                 transformOrigin:
@@ -81,21 +82,19 @@ export default function AccountMenu() {
                             <Paper>
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList
-
                                         autoFocusItem={open}
                                         id="composition-menu"
                                         aria-labelledby="composition-button"
                                         onKeyDown={handleListKeyDown}
                                     >
-                                        <MenuItem
 
+                                        <MenuItem
                                         // onClick={handleClose}
                                         >Profile</MenuItem>
                                         <MenuItem
                                         // onClick={handleClose}
                                         >My account</MenuItem>
                                         <MenuItem
-
                                             onClick={handleClickClose}
                                         >Logout</MenuItem>
                                     </MenuList>

@@ -7,14 +7,7 @@ import { Link } from 'react-router-dom'
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 function VendorPortalAccVendorDetails() {
   const { id } = useParams();
-  // const history = useNavigate();
-  // const currentAddress = window.location.href;
-  // console.log(currentAddress);
-  // if (currentAddress.includes("acc")) {
-  //   console.log("yes");
-  // } else {
-  //   console.log("no");
-  // }
+
   const [img, setImg] = useState("");
   const [arr, setArr] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -439,7 +432,7 @@ function VendorPortalAccVendorDetails() {
               />
 
             </div>
-            <div className="con con-img">
+            <div className="con">
               <label for=""> MSME Certificate </label>
               {arr.img_2_data ? (
                 <div className="certificate-config">
@@ -506,10 +499,10 @@ function VendorPortalAccVendorDetails() {
                 <label for="">N/A</label>
               )}
               <label for=""> PAN CARD</label>
-              {arr.img_2_data ? (
+              {arr.img_3_data ? (
                 <div className="certificate-config">
                   <a
-                    href={`data:image/png;base64,${arr.img_2_data}`}
+                    href={`data:image/png;base64,${arr.img_3_data}`}
                     download={`${arr.img_2_name}.png`}
                   >
                     Download
@@ -519,7 +512,7 @@ function VendorPortalAccVendorDetails() {
                     onClick={(e) => {
                       e.preventDefault();
                       setImgShow(!imgShow);
-                      setImg(arr.img_2_data);
+                      setImg(arr.img_3_data);
 
                     }}
                   >

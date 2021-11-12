@@ -1,0 +1,32 @@
+.top-heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: auto;
+  height: 5rem;
+  background: black;
+  background: black;
+  background: black;
+  background: black;
+  background: -webkit-gradient(linear, left top, right top, color-stop(10%, black), color-stop(99%, #f63d3d));
+  background: linear-gradient(90deg, black 10%, #f63d3d 99%);
+  margin-bottom: 1.5rem;
+}
+
+.top-heading h1 {
+  margin-left: -9rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  margin-right: auto;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.top-heading img {
+  margin-right: auto;
+  width: auto;
+  padding: 0.5rem;
+}
+/*# sourceMappingURL=App.css.map */
