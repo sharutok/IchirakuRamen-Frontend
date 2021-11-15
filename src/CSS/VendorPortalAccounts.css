@@ -166,11 +166,10 @@ body {
 
 .control-panel h3 {
   color: #f3b360;
-  padding: 0.5rem;
   font-size: xx-large;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  margin-left: 0.3rem;
+  margin: 1rem;
   font-family: monospace;
   text-transform: uppercase;
 }

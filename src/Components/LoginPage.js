@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 // import  from "@mui/material/Button";
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { TextField, Box, Link, Snackbar } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import "../CSS/LoginPage.css";
 import logo from "../Images/AWL_logo_new.png";
-
+import Cookies from 'universal-cookie'
 function LoginPage() {
+  const cookies = new Cookies()
+  const navigate = useNavigate()
   const [mess, setMess] = useState({
     state: false,
     content: true
@@ -34,10 +37,13 @@ function LoginPage() {
       try {
         const isOk = await axios.post(LoginURL, loginData)
         console.log(isOk.status);
+        const cookies = new Cookies()
+        cookies.set("user", loginData.username, { path: "/" })
         setError({ state: false, content: "" })
         setTimeout(async () => {
           console.log("sent");
-          window.location.href = 'http://localhost:3000/acc';
+          navigate('/acc', { state: { user: loginData.username } })
+          window.location.reload()
         }, 2000)
         setLoading(true)
       } catch (error) {

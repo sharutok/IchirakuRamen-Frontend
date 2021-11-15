@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/VendorPortalAccVendorDetails.scss";
-
+import { GrClose } from 'react-icons/gr'
 import { useParams } from 'react-router'
 import axios from "axios";
 import { Link } from 'react-router-dom'
@@ -468,7 +468,10 @@ function VendorPortalAccVendorDetails() {
                     setImgShow(!imgShow);
                     setImg(arr.img_2_data);
 
-                  }}>Close</button>
+                  }}>
+                    {/* Close */}
+                    <GrClose size="20" />
+                  </button>
                 </div>
               )}
 

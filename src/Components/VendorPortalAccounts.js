@@ -14,8 +14,10 @@ import "../CSS/VendorPortalAccounts.scss";
 import bcrypt from 'bcryptjs'
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-function VendorPortalAccounts() {
+import Cookies from "universal-cookie";
+const cookies = new Cookies()
 
+function VendorPortalAccounts() {
   let lastArrValue;
   let postsPerPage = 10;
   let pageArr = [];
@@ -139,7 +141,6 @@ function VendorPortalAccounts() {
   return (
     <>
       <div>
-
         {popup.condition && (
           <div className="popover">
             <h3>{popup.content}</h3>
@@ -181,13 +182,6 @@ function VendorPortalAccounts() {
             // className="log-out-menu"
             >
               <AccountMenu />
-              {/* <Chip
-                className="log-out-menu-chip"
-                // avatar={<Avatar></Avatar>}
-                size="large"
-                label="Sharan Kudtarkar"
-              /> */}
-              {/* <MoreVertIcon style={{ fontSize: "2rem" }} /> */}
             </Stack>
             {/* <h1>Control Panel</h1> */}
             <h3
@@ -207,7 +201,7 @@ function VendorPortalAccounts() {
 
             >
               {/* Vendor Master */}
-              <Tooltip title="Vendor Master" placement="right" arrow>
+              <Tooltip title="Vendor Master" placement="right" >
                 <IconButton style={{
                   color: active.vendorMaster && "#e7eaf6",
                   backgroundColor: active.vendorMaster && "#113f67",
@@ -255,7 +249,7 @@ function VendorPortalAccounts() {
 
             >
               {/* Status */}
-              <Tooltip title="Status" placement="right" arrow>
+              <Tooltip title="Status" placement="right"  >
                 <IconButton style={{
                   color: active.status && "#e7eaf6",
                   backgroundColor: active.status && "#113f67",
@@ -283,6 +277,7 @@ function VendorPortalAccounts() {
                       <>
                         <div className="black">
                           <Account_Page
+                            key={i}
                             arr={arr}
                             i={i}
                             display={display}
@@ -299,6 +294,7 @@ function VendorPortalAccounts() {
                       <>
                         <div className="white">
                           <Account_Page
+                            key={i}
                             arr={arr}
                             i={i}
                             display={display}
@@ -387,14 +383,14 @@ function Account_Page({
       <div className="acc_page">
         <input disabled="true" type="" name="" value={arr.supplier_number} />
         <input
-          disabled="true"
+          disabled={true}
           type=""
           name=""
           value={arr.organization !== null ? arr.organization : "N/A"}
         />
         {display.status && (
           <input
-            disabled="true"
+            disabled={true}
             type=""
             name=""
             value={arr.supplier_name !== null ? arr.supplier_name : "N/A"}
@@ -402,14 +398,14 @@ function Account_Page({
         )}
         {display.status && (
           <input
-            disabled="true"
+            disabled={true}
             type=""
             name=""
             value={arr.certificate_no !== "" ? arr.certificate_no : "N/A"}
           />
         )}
         {display.allVendor && (
-          <input disabled="true" type="" name="" style={{ color: arr.status === "Pending" ? "red" : "green" }} value={arr.status} />
+          <input disabled={true} type="" name="" style={{ color: arr.status === "Pending" ? "red" : "green" }} value={arr.status} />
         )}
         {display.allVendor && (
           <>

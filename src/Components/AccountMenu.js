@@ -1,109 +1,64 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
-import Popover from '@mui/material/Popover';
-import { Avatar, Menu } from '@material-ui/core';
-export default function AccountMenu() {
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
+import { FaUserCircle } from 'react-icons/fa';
 
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Cookies from 'universal-cookie'
+export default function PositionedMenu() {
+    const cookies = new Cookies()
+    const [auth, setAuth] = React.useState((cookies.get("user")))
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+
+        setAnchorEl(event.currentTarget);
     };
-
-    const handleClose = (event) => {
-
-        setOpen(false);
+    const handleClose = () => {
+        setAnchorEl(null);
     };
-    const handleClickClose = e => {
-        window.location.href = "/login"
-        setOpen(false)
-
-    }
-
-    function handleListKeyDown(event) {
-        if (event.key === 'Tab') {
-            event.preventDefault();
-            setOpen(false);
-        } else if (event.key === 'Escape') {
-            setOpen(false);
-        }
-    }
-
-    // return focus to the button when we transitioned from !open -> open
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
-        if (prevOpen.current === true && open === false) {
-            anchorRef.current.focus();
-        }
-
-        prevOpen.current = open;
-    }, [open]);
 
     return (
-        <Stack direction="row" spacing={2}  >
-
-            <div>
-                <Button
-                    ref={anchorRef}
-                    id="composition-button"
-                    aria-controls={open ? 'composition-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
+        <div>
+            <IconButton style={{
+                padding: "0.5rem",
+                margin: "1rem"
+            }} >
+                <FaUserCircle id="demo-positioned-button"
+                    aria-controls="demo-positioned-menu"
                     aria-haspopup="true"
-                    onClick={handleToggle}
-                >
-
-                    <Avatar>{"SK"}</Avatar>
-                </Button>
-                <Popper
-
-                    open={open}
-                    anchorEl={anchorRef.current}
-                    role={undefined}
-                    placement="bottom-start"
-                    transition
-                    disablePortal
-                >
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-
-                            {...TransitionProps}
-                            style={{
-                                transformOrigin:
-                                    placement === 'bottom-start' ? 'left top' : 'left bottom',
-                            }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList
-                                        autoFocusItem={open}
-                                        id="composition-menu"
-                                        aria-labelledby="composition-button"
-                                        onKeyDown={handleListKeyDown}
-                                    >
-
-                                        <MenuItem
-                                        // onClick={handleClose}
-                                        >Profile</MenuItem>
-                                        <MenuItem
-                                        // onClick={handleClose}
-                                        >My account</MenuItem>
-                                        <MenuItem
-                                            onClick={handleClickClose}
-                                        >Logout</MenuItem>
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
-            </div>
-        </Stack>
+                    // size="24"
+                    style={{ cursor: "pointer" }}
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick} />
+            </IconButton>
+            <Menu
+                style={{ marginLeft: "2rem" }}
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+            >
+                <MenuItem onClick={handleClose} style={{ textTransform: "uppercase", fontWeight: "bolder" }}>{auth}</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={e => {
+                    const cookies = new Cookies()
+                    cookies.remove("user", { path: "/acc" })
+                    console.log(cookies.remove("user"));
+                    window.location.href = "/login"
+                }}>Logout</MenuItem>
+            </Menu>
+        </div>
     );
 }
