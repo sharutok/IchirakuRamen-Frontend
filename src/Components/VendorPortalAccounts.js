@@ -15,12 +15,19 @@ import bcrypt from 'bcryptjs'
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Cookies from "universal-cookie";
-const cookies = new Cookies()
+import Badge from '@mui/material/Badge';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import AddIcon from '@mui/icons-material/Add';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 function VendorPortalAccounts() {
   let lastArrValue;
   let postsPerPage = 10;
   let pageArr = [];
+  const [status, setStatus] = useState({
+    pending: "", approved: "", new_record: ""
+  })
   const [active, setActive] = useState({
     status: false,
     allVendor: false,
@@ -80,7 +87,8 @@ function VendorPortalAccounts() {
         const res = await fetch(getSmartSearchURL);
         const data = await res.json();
         if (data.result) {
-          setValue(data.result);
+          setValue(data.result.slice(0, 10));
+          setPost(data.result);
         } else {
           getData();
         }
@@ -138,6 +146,21 @@ function VendorPortalAccounts() {
       type: "",
     });
   }
+
+  async function status_length() {
+    const new_record = await axios.get(`http://localhost:8080/today_data`)
+    const approved = await axios.get(`http://localhost:8080/vendor/status/Approved`)
+    const pending = await axios.get(`http://localhost:8080/vendor/status/Pending`)
+    setStatus({
+      pending: pending.data.result,
+      approved: approved.data.result,
+      new_record: new_record.data.length
+    })
+
+  }
+  useEffect(() => {
+    status_length()
+  }, [])
   return (
     <>
       <div>
@@ -178,11 +201,11 @@ function VendorPortalAccounts() {
         <div className="bifercation">
 
           <div className="control-panel">
-            <Stack direction="row" spacing={1}
-            // className="log-out-menu"
-            >
+            {/* <Tooltip title="Logout" placement="right"> */}
+            <Stack style={{ backgroundColor: "#3671B1" }}>
               <AccountMenu />
             </Stack>
+            {/* </Tooltip> */}
             {/* <h1>Control Panel</h1> */}
             <h3
               onClick={() => {
@@ -212,27 +235,6 @@ function VendorPortalAccounts() {
               </Tooltip>
 
             </h3>
-            {/* <h3
-              onClick={() => {
-                setDisplay({
-                  status: true,
-                  vendorMaster: true,
-                  allVendor: false,
-                });
-                setActive({
-                  status: false,
-
-                  vendorMaster: false,
-                  allVendor: true,
-                });
-              }}
-              style={{
-                fontSize: active.allVendor ? "1.5rem" : "1rem",
-                color: active.allVendor ? "burlywood" : "black",
-              }}
-            >
-              All Vendors
-            </h3> */}
             <h3
               onClick={() => {
                 setDisplay({
@@ -245,10 +247,7 @@ function VendorPortalAccounts() {
                   vendorMaster: false,
                   status: true,
                 });
-              }}
-
-            >
-              {/* Status */}
+              }}>
               <Tooltip title="Status" placement="right"  >
                 <IconButton style={{
                   color: active.status && "#e7eaf6",
@@ -267,7 +266,7 @@ function VendorPortalAccounts() {
               {display.status && <label>Party Supplier Name</label>}
               {display.status && <label>MSME Number</label>}
               {display.allVendor && <label>Status</label>}
-              {display.allVendor && <label>Operations</label>}
+              {display.status && <label>Operations</label>}
             </div>
             <div>
               {display.vendorMaster &&
@@ -309,7 +308,7 @@ function VendorPortalAccounts() {
                   }
                 })}
             </div>
-            <label className="page">Page: {page}</label>
+            <label className="page">Page:<span style={{ color: "blue" }}>{page}</span></label>
             <div className="pagination">
 
               {pageArr.map((no) => {
@@ -342,6 +341,34 @@ function VendorPortalAccounts() {
               )}
             </div>
           </form>
+          {!display.status && <>
+            <div className="badge-container" >
+              <div className="badge">
+                <Badge badgeContent={status.pending} color="primary" className="badge-icons">
+                  <PendingActionsIcon fontSize="medium" sx={{ color: "red" }} />
+                </Badge>
+                <label for="">Pending</label>
+              </div>
+              <div className="badge">
+                <Badge badgeContent={status.approved} color="primary" className="badge-icons">
+                  <DoneAllIcon fontSize="medium" color="success" />
+                </Badge>
+                <label for="">Approved</label>
+              </div>
+              <div className="badge">
+                <Badge badgeContent={status.new_record} color="primary" className="badge-icons">
+                  <AddIcon fontSize="medium" sx={{ color: "lightblue" }} />
+                </Badge>
+                <label for="">New Record</label>
+              </div>
+              <div className="badge">
+                <Badge badgeContent={(post.length)} color="primary" className="badge-icons">
+                  <FormatListBulletedIcon fontSize="medium" sx={{ color: "black" }} />
+                </Badge>
+                <label for="">Total Records</label>
+              </div>
+            </div>
+          </>}
         </div>
       </div>
     </>
@@ -381,6 +408,7 @@ function Account_Page({
   return (
     <>
       <div className="acc_page">
+
         <input disabled="true" type="" name="" value={arr.supplier_number} />
         <input
           disabled={true}
@@ -388,6 +416,7 @@ function Account_Page({
           name=""
           value={arr.organization !== null ? arr.organization : "N/A"}
         />
+
         {display.status && (
           <input
             disabled={true}
@@ -407,7 +436,7 @@ function Account_Page({
         {display.allVendor && (
           <input disabled={true} type="" name="" style={{ color: arr.status === "Pending" ? "red" : "green" }} value={arr.status} />
         )}
-        {display.allVendor && (
+        {display.status && (
           <>
             <div>
               <button
@@ -449,6 +478,7 @@ function Account_Page({
           </>
         )}
       </div>
+
     </>
   );
 }

@@ -3,7 +3,9 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { FaUserCircle } from 'react-icons/fa';
-
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import FaceIcon from '@mui/icons-material/Face';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Cookies from 'universal-cookie'
@@ -35,7 +37,7 @@ export default function PositionedMenu() {
                     onClick={handleClick} />
             </IconButton>
             <Menu
-                style={{ marginLeft: "2rem" }}
+                style={{ marginLeft: "2rem", }}
                 id="demo-positioned-menu"
                 aria-labelledby="demo-positioned-button"
                 anchorEl={anchorEl}
@@ -50,7 +52,12 @@ export default function PositionedMenu() {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem onClick={handleClose} style={{ textTransform: "uppercase", fontWeight: "bolder" }}>{auth}</MenuItem>
+                {/* <MenuItem onClick={handleClose} >{auth}</MenuItem> */}
+                <MenuItem>
+                    <Stack direction="row" spacing={1}>
+                        <Chip style={{ textTransform: "uppercase", fontWeight: "bolder", padding: "0 2rem 0 0" }} icon={<FaceIcon />} label={auth} variant="outlined" />
+                    </Stack>
+                </MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={e => {
                     const cookies = new Cookies()

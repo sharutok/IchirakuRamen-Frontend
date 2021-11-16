@@ -10,6 +10,9 @@ body {
 }
 
 .smart-search input {
+  background-color: #f8eeee;
+  -webkit-box-shadow: 5px 5px 20px #cfcfcf;
+          box-shadow: 5px 5px 20px #cfcfcf;
   border-radius: 0;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -149,7 +152,8 @@ body {
 .control-panel {
   margin-top: -5.5rem;
   border-top-right-radius: 5px;
-  background-color: #f8f398;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#edda5b), color-stop(#e1dd61), color-stop(#d6e068), color-stop(#cae370), color-stop(#bfe579), color-stop(#c1e277), color-stop(#c4e075), color-stop(#c6dd73), color-stop(#d5d468), color-stop(#e3cb61), color-stop(#f0c15e), to(#fbb75f));
+  background-image: linear-gradient(to top, #edda5b, #e1dd61, #d6e068, #cae370, #bfe579, #c1e277, #c4e075, #c6dd73, #d5d468, #e3cb61, #f0c15e, #fbb75f);
   -webkit-box-shadow: 5px 5px 20px #ebebeb;
           box-shadow: 5px 5px 20px #ebebeb;
   position: absolute;
@@ -281,8 +285,8 @@ body {
   background-color: #fff;
   border: 1px solid var(--blue);
   cursor: pointer;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
 }
 
 .pagination button:hover {
@@ -376,5 +380,41 @@ body {
 
 .page {
   font-weight: bold;
+}
+
+.badge-container {
+  background-color: #f8eeee;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+  grid-gap: 0;
+  height: 10rem;
+  padding: 1rem;
+  border-radius: 5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-box-shadow: 5px 5px 10px #cfcfcf;
+          box-shadow: 5px 5px 10px #cfcfcf;
+  margin-left: -20rem;
+}
+
+.badge-container .badge {
+  -webkit-box-shadow: 5px 5px 10px #cfcfcf;
+          box-shadow: 5px 5px 10px #cfcfcf;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  background-color: #d9ebb7;
+  margin-bottom: 0.5rem;
+}
+
+.badge-container .badge-icons {
+  cursor: pointer;
+}
+
+.badge-container label {
+  font-weight: bolder;
+  margin-left: 1rem;
 }
 /*# sourceMappingURL=VendorPortalAccounts.css.map */

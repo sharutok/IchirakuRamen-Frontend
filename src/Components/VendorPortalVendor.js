@@ -5,19 +5,19 @@ import bcrypt from 'bcryptjs'
 import axios from "axios";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useLocation } from 'react-router-dom'
+import { GrClose } from 'react-icons/gr'
 import "../CSS/VendorPortalVendor.css";
-
-
 function VendorPortal_User() {
   const { search } = useLocation()
+  // console.log(search);
   const { v } = queryString.parse(search)
   let key = v
   const [arrImg, setArrImg] = useState([])
   const [img, setImg] = useState("");
   const [imgShow, setImgShow] = useState(false);
-  const [file, setFile] = useState("");
+  // const [file, setFile] = useState("");
   const [arr, setArr] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [dataget, setDataGet] = useState("");
   const [vInfo, setVInfo] = useState({
     supplier_number: "",
@@ -39,7 +39,6 @@ function VendorPortal_User() {
     disabled: true,
     save: true,
   });
-  // const [anew, setaNew] = useState(false);
   const [mess, setMess] = useState({
     state: false,
     content: "",
@@ -105,16 +104,14 @@ function VendorPortal_User() {
     }
     const resImg = await fetch(getImg)
     const dataImg = await resImg.json()
-
     setArrImg(dataImg)
   };
 
 
   const handleSearchClick = (e) => {
     e.preventDefault();
-
     let checkSupplierNumber = bcrypt.compareSync(vInfo.supplier_number, key)
-    console.log(checkSupplierNumber);
+    // console.log(checkSupplierNumber);
 
     if (vInfo.supplier_number === "") {
       setMess({
@@ -210,15 +207,6 @@ function VendorPortal_User() {
       <>
         {mess.state && <p className="message1">{mess.content}</p>}
         <h1 className="heading">MSME - Vendor Detail Form</h1>
-        {/* 
-        {anew && (
-          <VendorPortal_Create_New
-            setaNew={setaNew}
-            mess={mess}
-            setMess={setMess}
-          />
-        )} */}
-
         <form className="vendor_form">
           {vInfo.status && (
             <h1 className="status">
@@ -441,13 +429,6 @@ function VendorPortal_User() {
                 <label for="">N/A</label>
               )}
 
-              {imgShow && (
-                <img
-                  className="img-thumbnails"
-                  src={`data:image/png;base64,${img}`}
-                  alt=""
-                />
-              )}
               <label for="">MSMECertificate </label>
               {arrImg.img_2_data ? (
                 <div className="certificate-config">
@@ -532,11 +513,31 @@ function VendorPortal_User() {
               )}
 
               {
-                <button type="" className="vendor_form_del">
+                <button onClick={(e) => {
+                  e.preventDefault()
+                  window.location.reload()
+                }} className="vendor_form_del">
                   Cancel
                 </button>
               }
             </div>
+            {imgShow && (
+              <div className="img-thumbnails">
+                <img
+                  src={`data:image/png;base64,${img}`}
+                  alt=""
+                />
+                <button onClick={(e) => {
+                  e.preventDefault();
+                  setImgShow(!imgShow);
+                  setImg(arr.img_2_data);
+
+                }}>
+                  {/* Close */}
+                  <GrClose size="20" />
+                </button>
+              </div>
+            )}
           </div>
         </form>
       </>

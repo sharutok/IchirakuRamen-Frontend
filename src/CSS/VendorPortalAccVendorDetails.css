@@ -34,11 +34,11 @@
   width: 3rem;
   height: 2rem;
   border: none;
-  color: red;
+  background-color: #ec6a6a;
 }
 
 .con .img-thumbnail button:hover {
-  background-color: #ec6a6a;
+  background-color: red;
 }
 
 .img-thumbnail {
