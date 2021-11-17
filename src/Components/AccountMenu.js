@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { FaUserCircle } from 'react-icons/fa';
@@ -7,12 +6,23 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import FaceIcon from '@mui/icons-material/Face';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import Cookies from 'universal-cookie'
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+
 export default function PositionedMenu() {
     const cookies = new Cookies()
     const [auth, setAuth] = React.useState((cookies.get("user")))
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [opens, setOpens] = React.useState(false);
+    // const handleClose = () => {
+    //   setOpen(false);
+    // };
+    const handleToggle = () => {
+        setOpens(!opens);
+    };
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
 
@@ -63,9 +73,22 @@ export default function PositionedMenu() {
                     const cookies = new Cookies()
                     cookies.remove("user", { path: "/acc" })
                     console.log(cookies.remove("user"));
-                    window.location.href = "/login"
+                    handleToggle()
+                    handleClose()
+                    setTimeout(() => {
+                        window.location.href = "/login"
+                    }, 1500)
                 }}>Logout</MenuItem>
             </Menu>
+            <Backdrop
+                sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={opens}
+                onClick={() => {
+                    setOpens(true);
+                }}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     );
 }

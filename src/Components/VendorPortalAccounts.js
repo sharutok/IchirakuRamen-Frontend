@@ -20,6 +20,12 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import AddIcon from '@mui/icons-material/Add';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function VendorPortalAccounts() {
   let lastArrValue;
@@ -59,6 +65,15 @@ function VendorPortalAccounts() {
     supplier_name: "",
     certificate_no: "",
   });
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const getAllURL = `http://localhost:8080/vendor/`;
   const getSmartSearchURL = `http://localhost:8080/vendor/smartSearch/${smartSearch}`;
@@ -119,8 +134,8 @@ function VendorPortalAccounts() {
   async function handleCheck() {
     if (sendData.type === "send") {
       console.log(sendData.type);
+      setOpen(false)
       await axios.post(sendMailToVendor, sendData);
-      // console.log(sendData);
       setPopUp({
         content: "",
         condition: false,
@@ -132,16 +147,18 @@ function VendorPortalAccounts() {
         content: "",
         condition: false,
       });
+      setOpen(false)
       await axios.delete(`${deleteURLVendor}/${sendData.supplier_number}`);
       await axios.delete(`${deleteURLImg}/${sendData.supplier_number}`)
     }
+
     setPopUp({
       content: "",
       condition: false,
     });
     setSendData({
-      supplier_number: "",
       portal_link: "",
+      supplier_number: "",
       vendor_email: "",
       type: "",
     });
@@ -161,35 +178,30 @@ function VendorPortalAccounts() {
   useEffect(() => {
     status_length()
   }, [])
+  // console.log(popup.condition);
   return (
     <>
       <div>
-        {popup.condition && (
-          <div className="popover">
-            <h3>{popup.content}</h3>
-            <div className="yesno ">
-              <button
-                className="yes"
-                onClick={() => {
-                  handleCheck();
-                }}
-              >
+        <div>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <DialogContent>
+              {popup.content}
+            </DialogContent >
+            {sendData.vendor_email && <DialogTitle id="alert-dialog-title" sx={{ textAlign: "center" }}>
+              {sendData.vendor_email}
+            </DialogTitle>}
+            <DialogActions  >
+              <Button onClick={handleCheck} >
                 Yes
-              </button>
-              <button
-                className="no"
-                onClick={() => {
-                  setPopUp({
-                    content: "",
-                    condition: false,
-                  });
-                }}
-              >
-                No
-              </button>
-            </div>
-          </div>
-        )}
+              </Button>
+              <Button autoFocus onClick={handleClose}>No</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
         <div className="smart-search">
           <input
             onKeyPress={handleEnterKeyPress}
@@ -202,11 +214,10 @@ function VendorPortalAccounts() {
 
           <div className="control-panel">
             {/* <Tooltip title="Logout" placement="right"> */}
-            <Stack style={{ backgroundColor: "#3671B1" }}>
+            <Stack style={{ backgroundColor: "#113f67" }}>
               <AccountMenu />
             </Stack>
-            {/* </Tooltip> */}
-            {/* <h1>Control Panel</h1> */}
+
             <h3
               onClick={() => {
                 setDisplay({
@@ -261,9 +272,9 @@ function VendorPortalAccounts() {
           </div>
           <form className="right-view">
             <div className="acc_page_label">
-              {<label>Party Number</label>}
-              {<label>Party Name</label>}
-              {display.status && <label>Party Supplier Name</label>}
+              {<label>Vendor Number</label>}
+              {<label>Vendor Name</label>}
+              {display.status && <label>Vendor Supplier Name</label>}
               {display.status && <label>MSME Number</label>}
               {display.allVendor && <label>Status</label>}
               {display.status && <label>Operations</label>}
@@ -284,6 +295,7 @@ function VendorPortalAccounts() {
                             setPopUp={setPopUp}
                             sendData={sendData}
                             setSendData={setSendData}
+                            handleClickOpen={handleClickOpen}
                           />
                         </div>
                       </>
@@ -301,6 +313,7 @@ function VendorPortalAccounts() {
                             setPopUp={setPopUp}
                             sendData={sendData}
                             setSendData={setSendData}
+                            handleClickOpen={handleClickOpen}
                           />
                         </div>
                       </>
@@ -378,6 +391,7 @@ function Account_Page({
   arr,
   display,
   setPopUp,
+  handleClickOpen,
   popup,
   sendData,
   setSendData,
@@ -389,7 +403,7 @@ function Account_Page({
     portal_link = `${portal_link}/key?v=${key}`
     setPopUp({
       condition: true,
-      content: `Sure you want to send ${vendor_email} !!! `,
+      content: `Sure you want to send mail to !!! `,
     });
     setSendData({ vendor_email, supplier_number, portal_link, type: "send" });
   }
@@ -439,42 +453,36 @@ function Account_Page({
         {display.status && (
           <>
             <div>
+              <Tooltip arrow placement="top" title="Send Email">
+                <button
+                  className="link-send"
+                  type=""
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClickOpen()
+                    handleSendMail(arr.vendor_email, arr.supplier_number);
+                  }}>
+                  <BiMailSend />
+                </button>
+              </Tooltip>
+            </div>
+            <Tooltip arrow placement="top" title="Info">
+              <Link className="know-more" to={`/acc/${arr.supplier_number}`}>
+                <AiOutlineInfoCircle />
+              </Link>
+            </Tooltip>
+            <Tooltip arrow placement="top" title="Delete / Not MSEME Vendor ">
               <button
-                className="link-send"
-                type=""
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSendMail(arr.vendor_email, arr.supplier_number);
+                  handleClickOpen()
+                  handleDeleteCheck(arr.supplier_number);
                 }}
+                className="delete"
               >
-                <BiMailSend />
-
-                <span
-                  className="hover-message"
-                  style={{ position: "absolute" }}
-                >
-                  Send mail
-                </span>
+                <AiOutlineDelete />
               </button>
-            </div>
-            <Link className="know-more" to={`/acc/${arr.supplier_number}`}>
-              <AiOutlineInfoCircle />
-              <span className="hover-message" style={{ position: "absolute" }}>
-                Details
-              </span>
-            </Link>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                handleDeleteCheck(arr.supplier_number);
-              }}
-              className="delete"
-            >
-              <AiOutlineDelete />
-              <span className="hover-message" style={{ position: "absolute" }}>
-                Delete
-              </span>
-            </button>
+            </Tooltip>
           </>
         )}
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import queryString from 'query-string'
 import bcrypt from 'bcryptjs'
@@ -7,6 +7,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useLocation } from 'react-router-dom'
 import { GrClose } from 'react-icons/gr'
 import "../CSS/VendorPortalVendor.css";
+import Loading from "./Loading";
 function VendorPortal_User() {
   const { search } = useLocation()
   // console.log(search);
@@ -17,7 +18,7 @@ function VendorPortal_User() {
   const [imgShow, setImgShow] = useState(false);
   // const [file, setFile] = useState("");
   const [arr, setArr] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [dataget, setDataGet] = useState("");
   const [vInfo, setVInfo] = useState({
     supplier_number: "",
@@ -111,7 +112,7 @@ function VendorPortal_User() {
   const handleSearchClick = (e) => {
     e.preventDefault();
     let checkSupplierNumber = bcrypt.compareSync(vInfo.supplier_number, key)
-    // console.log(checkSupplierNumber);
+    console.log(vInfo.supplier_number, key, checkSupplierNumber);
 
     if (vInfo.supplier_number === "") {
       setMess({
@@ -177,10 +178,7 @@ function VendorPortal_User() {
       if (arr.length === 3) {
         console.log("sent");
         await axios.post(uploadImag, formData);
-
       }
-
-
     } catch (error) {
       console.log("not updated");
     }
@@ -201,10 +199,16 @@ function VendorPortal_User() {
       arr.push(e.target.files[0]);
     }
   }
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(true)
+    }, 2000)
+  }, [])
+
 
   return (
     <div>
-      <>
+      {loading ? <>
         {mess.state && <p className="message1">{mess.content}</p>}
         <h1 className="heading">MSME - Vendor Detail Form</h1>
         <form className="vendor_form">
@@ -540,7 +544,7 @@ function VendorPortal_User() {
             )}
           </div>
         </form>
-      </>
+      </> : <Loading />}
     </div>
   );
 }

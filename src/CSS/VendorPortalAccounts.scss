@@ -6,6 +6,7 @@ body {
   background-color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 .smart-search {
   // background-color: red;
@@ -168,7 +169,7 @@ body {
     #f0c15e,
     #fbb75f
   );
-  box-shadow: 5px 5px 20px rgb(235, 235, 235);
+  // box-shadow: 5px 5px 20px rgb(235, 235, 235);
   position: absolute;
   height: 100%;
   h1 {
@@ -195,6 +196,11 @@ body {
 .bifercation {
   display: grid;
   grid-template-columns: auto auto;
+  box-shadow: 5px 5px 10px rgb(221, 220, 220);
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  width: fit-content;
+  height: fit-content;
 }
 .right-view {
   margin-left: 5rem;
@@ -281,9 +287,13 @@ $font-weight: bolder;
 }
 
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin: 3rem 0 3rem 0;
+  position: absolute;
+  // background-color: #c6dd73;
+  // display: flex;
+  // justify-content: center;
+  top: 95%;
+  width: 100%;
+  margin: 3rem 0 5rem 0;
 
   button {
     margin-left: 1rem;
@@ -294,7 +304,7 @@ $font-weight: bolder;
     background-color: #fff;
     border: 1px solid var(--blue);
     cursor: pointer;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
   }
 
   button:hover {
@@ -365,6 +375,9 @@ $font-weight: bolder;
   }
 }
 .page {
+  margin-left: 1rem;
+  position: absolute;
+  top: 95%;
   font-weight: bold;
 }
 .badge-container {
@@ -377,7 +390,7 @@ $font-weight: bolder;
   border-radius: 5px;
   width: fit-content;
   box-shadow: 5px 5px 10px #cfcfcf;
-  margin-left: -20rem;
+  margin: 1rem;
   .badge {
     box-shadow: 5px 5px 10px #cfcfcf;
     padding: 0 0.5rem;

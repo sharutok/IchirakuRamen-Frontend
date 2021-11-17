@@ -25,6 +25,7 @@ function VendorPortalAccVendorDetails() {
     certificate_expiration_date: "",
     certificate_registration_date: "",
     upload_certificate: "",
+    vendor_email: "",
     status: "",
     remarks: ""
 
@@ -70,6 +71,7 @@ function VendorPortalAccVendorDetails() {
           certificate_registration_date: x.certificate_registration_date,
           upload_certificate: x.upload_certificate,
           status: x.status,
+          vendor_email: x.vendor_email,
           remarks: x.remarks
         });
       });
@@ -87,6 +89,7 @@ function VendorPortalAccVendorDetails() {
         certificate_expiration_date: "",
         certificate_registration_date: "",
         upload_certificate: "",
+        vendor_email: "",
         status: "",
         remarks: ""
       });
@@ -105,19 +108,7 @@ function VendorPortalAccVendorDetails() {
     getImgData();
   }, []);
 
-  // const handleSearchClick = (e) => {
-  //   e.preventDefault();
-  //   if (vInfo.supplier_number === "") {
-  //     setMess({
-  //       state: true,
-  //       content: "There is no Supplier number mentioned",
-  //     });
-  //     setTimeout(() => {
-  //       setMess({ state: false, content: "" });
-  //     }, 2000);
-  //   } else {
-  //   }
-  // };
+
   // const deleteData = async () => {
   //   try {
   //     await axios.delete(deleteURL);
@@ -417,10 +408,23 @@ function VendorPortalAccVendorDetails() {
                 }}
               />
             </div>
-
+            <div className="con ">
+              <label for="">Vendor Email</label>
+              <input
+                type="text"
+                // placeholder="Certificate Agency"
+                name="vendor_email"
+                disabled={hide.disabled}
+                value={
+                  vInfo.vendor_email === (null || "")
+                    ? "N/A"
+                    : vInfo.vendor_email
+                }
+                onChange={handleChange}
+              />
+            </div>
 
             <div className="con ">
-
               <label for="">Remarks</label>
               <TextareaAutosize
                 type="text"
@@ -430,7 +434,6 @@ function VendorPortalAccVendorDetails() {
                 value={vInfo.remarks}
                 onChange={handleChange}
               />
-
             </div>
             <div className="con">
               <label for=""> MSME Certificate </label>
