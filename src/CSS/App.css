@@ -11,16 +11,16 @@
   background: black;
   background: black;
   background: black;
-  background: -webkit-gradient(linear, left top, right top, color-stop(10%, black), color-stop(99%, #f63d3d));
-  background: linear-gradient(90deg, black 10%, #f63d3d 99%);
+  background: white 99%;
   margin-bottom: 1.5rem;
 }
 
 .top-heading h1 {
   margin-left: -9rem;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Outfit", sans-serif;
   margin-right: auto;
-  color: #ffffff;
+  color: grey;
   font-size: 2rem;
 }
 
@@ -28,5 +28,10 @@
   margin-right: auto;
   width: auto;
   padding: 0.5rem;
+}
+
+.top-heading span {
+  color: black;
+  font-weight: 900;
 }
 /*# sourceMappingURL=App.css.map */

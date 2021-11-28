@@ -26,7 +26,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import LoadingSkeleton from "./LoadingSkeleton";
 function VendorPortalAccounts() {
   let lastArrValue;
   let postsPerPage = 10;
@@ -65,8 +65,8 @@ function VendorPortalAccounts() {
     supplier_name: "",
     certificate_no: "",
   });
+  const [loading, setLoading] = useState(false)
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -81,7 +81,8 @@ function VendorPortalAccounts() {
   const deleteURLVendor = `http://localhost:8080/vendor`;
   const deleteURLImg = `http://localhost:8080/file-upload/img`;
   const getData = async () => {
-    const res = await fetch(getAllURL);
+    const plant = ["CD (CHD DEALERS)", "CE (CHD EQPT)", "CG (CHD PWRG)", "CH (CHD CONS)", "CJ (CHD PROJ)", "CW (CHD WAPS)", "PE (PMP EQPT)"]
+    const res = await fetch(getAllURL, plant)
     const data = await res.json();
     setValue(data.allVendor.slice(0, 10));
     setPost(data.allVendor);
@@ -116,7 +117,7 @@ function VendorPortalAccounts() {
   for (let i = 1; i <= Math.ceil(post.length / postsPerPage); i++) {
     pageArr.push(i);
   }
-  // pageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  //pageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   if (pageArr.length >= 10) {
     // console.log("greater than 10");
     const fullpageArrLength = pageArr.length - 1;
@@ -166,8 +167,8 @@ function VendorPortalAccounts() {
 
   async function status_length() {
     const new_record = await axios.get(`http://localhost:8080/today_data`)
-    const approved = await axios.get(`http://localhost:8080/vendor/status/Approved`)
-    const pending = await axios.get(`http://localhost:8080/vendor/status/Pending`)
+    const approved = await axios.get(`http://localhost:8080/vendor/status/${1}`)
+    const pending = await axios.get(`http://localhost:8080/vendor/status/${0}`)
     setStatus({
       pending: pending.data.result,
       approved: approved.data.result,
@@ -177,12 +178,16 @@ function VendorPortalAccounts() {
   }
   useEffect(() => {
     status_length()
+    setTimeout(() => {
+      setLoading(true)
+    }, 1500)
   }, [])
   // console.log(popup.condition);
   return (
     <>
       <div>
         <div>
+
           <Dialog
             open={open}
             onClose={handleClose}
@@ -207,14 +212,13 @@ function VendorPortalAccounts() {
             onKeyPress={handleEnterKeyPress}
             value={smartSearch}
             onChange={handleSmartSearchChange}
-            placeholder="Smart Search"
+            placeholder="Search"
           />
         </div>
         <div className="bifercation">
-
           <div className="control-panel">
             {/* <Tooltip title="Logout" placement="right"> */}
-            <Stack style={{ backgroundColor: "#113f67" }}>
+            <Stack style={{ backgroundColor: " rgb(170, 170, 170)" }}>
               <AccountMenu />
             </Stack>
 
@@ -235,7 +239,7 @@ function VendorPortalAccounts() {
 
             >
               {/* Vendor Master */}
-              <Tooltip title="Vendor Master" placement="right" >
+              <Tooltip title="Vendor Master" placement="right" disableInteractive>
                 <IconButton style={{
                   color: active.vendorMaster && "#e7eaf6",
                   backgroundColor: active.vendorMaster && "#113f67",
@@ -259,7 +263,7 @@ function VendorPortalAccounts() {
                   status: true,
                 });
               }}>
-              <Tooltip title="Status" placement="right"  >
+              <Tooltip title="Status" placement="right" disableInteractive  >
                 <IconButton style={{
                   color: active.status && "#e7eaf6",
                   backgroundColor: active.status && "#113f67",
@@ -270,11 +274,12 @@ function VendorPortalAccounts() {
               </Tooltip>
             </h3>
           </div>
-          <form className="right-view">
+
+          {loading ? <form className="right-view">
             <div className="acc_page_label">
               {<label>Vendor Number</label>}
-              {<label>Vendor Name</label>}
-              {display.status && <label>Vendor Supplier Name</label>}
+              {<label>Plant</label>}
+              {display.status && <label>Vendor Name</label>}
               {display.status && <label>MSME Number</label>}
               {display.allVendor && <label>Status</label>}
               {display.status && <label>Operations</label>}
@@ -321,9 +326,11 @@ function VendorPortalAccounts() {
                   }
                 })}
             </div>
-            <label className="page">Page:<span style={{ color: "blue" }}>{page}</span></label>
-            <div className="pagination">
+            <div className="page">
+              <label >Page:<span style={{ color: "grey" }}>{page}</span></label>
+            </div>
 
+            <div className="pagination">
               {pageArr.map((no) => {
                 return (
                   <>
@@ -353,7 +360,7 @@ function VendorPortalAccounts() {
                 </button>
               )}
             </div>
-          </form>
+          </form> : < LoadingSkeleton />}
           {!display.status && <>
             <div className="badge-container" >
               <div className="badge">
@@ -432,12 +439,14 @@ function Account_Page({
         />
 
         {display.status && (
-          <input
-            disabled={true}
-            type=""
-            name=""
-            value={arr.supplier_name !== null ? arr.supplier_name : "N/A"}
-          />
+          <Tooltip placement="top" title={arr.supplier_name} disableInteractive>
+            <input
+              disabled={true}
+              type=""
+              name=""
+              value={arr.supplier_name !== null ? arr.supplier_name.substring(0, 15) + "...." : "N/A"}
+            />
+          </Tooltip>
         )}
         {display.status && (
           <input
@@ -448,12 +457,13 @@ function Account_Page({
           />
         )}
         {display.allVendor && (
-          <input disabled={true} type="" name="" style={{ color: arr.status === "Pending" ? "red" : "green" }} value={arr.status} />
+          <input disabled={true} type="" name="" style={{ color: arr.status === "0" ? "red" : "green" }}
+            value={arr.status === "0" ? "Pending" : "Approved"} />
         )}
         {display.status && (
           <>
             <div>
-              <Tooltip arrow placement="top" title="Send Email">
+              <Tooltip arrow placement="top" title="Send Email" disableInteractive>
                 <button
                   className="link-send"
                   type=""
@@ -466,12 +476,12 @@ function Account_Page({
                 </button>
               </Tooltip>
             </div>
-            <Tooltip arrow placement="top" title="Info">
+            <Tooltip arrow placement="top" title="Info" disableInteractive>
               <Link className="know-more" to={`/acc/${arr.supplier_number}`}>
                 <AiOutlineInfoCircle />
               </Link>
             </Tooltip>
-            <Tooltip arrow placement="top" title="Delete / Not MSEME Vendor ">
+            <Tooltip arrow placement="top" title="Delete / Not MSEME Vendor " disableInteractive>
               <button
                 onClick={(e) => {
                   e.preventDefault();

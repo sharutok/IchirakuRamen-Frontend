@@ -6,8 +6,20 @@ import axios from "axios";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useLocation } from 'react-router-dom'
 import { GrClose } from 'react-icons/gr'
-import "../CSS/VendorPortalVendor.css";
 import Loading from "./Loading";
+import { BsFillFileEarmarkSpreadsheetFill } from "react-icons/bs"
+import { AiOutlineDownload } from "react-icons/ai"
+import Tooltip from '@mui/material/Tooltip';
+import "../CSS/VendorPortalVendor.css";
+const stylesForReactIcons = {
+  margin: "0 0.5rem",
+  color: "grey",
+  backgroundColor: "yellow",
+  padding: "0.2rem",
+  backgroundColor: "white",
+  borderRadius: "5px",
+  boxShadow: "2px 2px 10px lightgrey"
+}
 function VendorPortal_User() {
   const { search } = useLocation()
   // console.log(search);
@@ -27,7 +39,7 @@ function VendorPortal_User() {
     type: "",
     created_date: "",
     inactive_date: "",
-    classification: "",
+    // classification: "",
     certificate_no: "",
     certificate_agency: "",
     certificate_expiration_date: "",
@@ -66,7 +78,7 @@ function VendorPortal_User() {
           type: x.type,
           created_date: x.created_date,
           inactive_date: x.inactive_date,
-          classification: x.classification,
+          // classification: x.classification,
           certificate_no: x.certificate_no,
           certificate_agency: x.certificate_agency,
           certificate_expiration_date: x.certificate_expiration_date,
@@ -85,7 +97,7 @@ function VendorPortal_User() {
         type: "",
         created_date: "",
         inactive_date: "",
-        classification: "",
+        // classification: "",
         certificate_no: "",
         certificate_agency: "",
         certificate_expiration_date: "",
@@ -210,39 +222,47 @@ function VendorPortal_User() {
     <div>
       {loading ? <>
         {mess.state && <p className="message1">{mess.content}</p>}
-        <h1 className="heading">MSME - Vendor Detail Form</h1>
-        <form className="vendor_form">
+
+        <div className="headings">
+          <h1>Vendor Detail Form</h1>
           {vInfo.status && (
-            <h1 className="status">
-              Status-
-              {vInfo.status === "Approved" ? (
-                <span style={{ color: "green" }}>Approved</span>
-              ) : (
-                <span style={{ color: "red" }}>Pending</span>
-              )}
-            </h1>
+            <div>
+              <span>
+                <h1 className="heading-status" >
+                  STATUS:
+                  {vInfo.status === 1 ? (
+                    <span style={{ color: "green" }}> APPROVED</span>
+                  ) : (
+                    <span style={{ color: "red" }}> PENDING</span>
+                  )}
+                </h1>
+              </span>
+            </div>
           )}
-          <div className="container">
+        </div>
+        <form className="vendor_forms">
+          <div className="containerz">
             <div>
               <input
                 type="text"
                 autoComplete="off"
                 placeholder="Supplier number"
-                className="supplier_no_ip"
+                className="supplier_no_ips"
                 name="supplier_number"
                 onChange={handleChange}
                 value={vInfo.supplier_number}
               />
               <button
                 type="submit"
-                className="supplier_no_btn"
+                className="supplier_no_btns"
                 onClick={handleSearchClick}
               >
                 Check
               </button>
             </div>
             <span></span>
-            <div className="con">
+            <span></span>
+            <div className="conn">
               <label for="">Organization</label>
               <input
                 type="text"
@@ -253,12 +273,12 @@ function VendorPortal_User() {
                 onChange={handleChange}
               />
             </div>
-            <div className="con">
+            {/* <div className="conn">
               <label for="">Classification</label>
               <input
                 type="text"
                 // placeholder="Classification"
-                name="classification"
+                name="classification"certificate
                 disabled={hide.disabled}
                 // value={vInfo.classification ? vInfo.classification : "N/A"}
                 value={
@@ -266,8 +286,8 @@ function VendorPortal_User() {
                 }
                 onChange={handleChange}
               />
-            </div>
-            <div className="con">
+            </div> */}
+            <div className="conn">
               <label for="">Supplier Name</label>
               <input
                 type="text"
@@ -278,20 +298,72 @@ function VendorPortal_User() {
                 onChange={handleChange}
               />
             </div>
-            <div className="con">
-              <label for="">Certificate No</label>
+            <div className="conn">
+              <label for="">GST Certificate</label>
+              <div className="img-upload-preview">
+                <input
+                  type="file"
+                  name="upload_certificate_1"
+                  disabled={hide.disabled}
+                  onChange={handleChange}
+                />
+                {arrImg.img_1_data ? (
+                  <div className="certificate-config img-upload-preview">
+                    <Tooltip placement="top" title="Download " disableInteractive>
+                      <a
+                        href={`data:image/png;base64,${arrImg.img_1_data}`}
+                        download={`${arrImg.img_1_name}.png`}
+                      >
+                        <AiOutlineDownload size={25} style={stylesForReactIcons} />
+                        {/* Download */}
+                      </a>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Preview" disableInteractive>
+                      <div>
+                        <BsFillFileEarmarkSpreadsheetFill
+                          size={25}
+                          style={stylesForReactIcons}
+                          className="preview"
+                          type=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setImgShow(!imgShow);
+                            setImg(arrImg.img_1_data);
+                          }}
+                        />
+                      </div>
+                    </Tooltip>
+
+                    {/* <button
+                      className="preview"
+                      type=""
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setImgShow(!imgShow);
+                        setImg(arrImg.img_1_data);
+                      }}
+                    >
+                      Preview
+                    </button> */}
+                  </div>
+                ) : (
+                  <label for="">N/A</label>
+                )}
+              </div>
+            </div>
+            <div className="conn">
+              <label for="">MSME Number</label>
               <input
                 type="text"
                 // placeholder="Certificate No"
                 name="certificate_no"
                 disabled={hide.disabled}
                 value={
-                  vInfo.certificate_no === null ? "N/A" : vInfo.certificate_no
-                }
+                  vInfo.certificate_no}
                 onChange={handleChange}
               />
             </div>
-            <div className="con">
+            <div className="conn">
               <label for="">Type</label>
               <input
                 type=""
@@ -302,7 +374,61 @@ function VendorPortal_User() {
                 onChange={handleChange}
               />
             </div>
-            <div className="con">
+            <div className="conn">
+              <label for="">MSME Certificate</label>
+              <div className="img-upload-preview">
+                <input
+                  type="file"
+                  name="upload_certificate_2"
+                  disabled={hide.disabled}
+                  onChange={handleChange}
+                />
+
+                {arrImg.img_2_data ? (
+                  <div className="certificate-config img-upload-preview">
+                    <Tooltip placement="top" title="Download " disableInteractive>
+                      <a
+                        href={`data:image/png;base64,${arrImg.img_2_data}`}
+                        download={`${arrImg.img_2_name}.png`}
+                      >
+                        <AiOutlineDownload size={25} style={stylesForReactIcons} />
+                        {/* Download */}
+                      </a>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Preview" disableInteractive>
+                      <div>
+                        <BsFillFileEarmarkSpreadsheetFill
+                          size={25}
+                          style={stylesForReactIcons}
+                          className="preview"
+                          type=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setImgShow(!imgShow);
+                            setImg(arrImg.img_2_data);
+                          }}
+                        />
+                      </div>
+                    </Tooltip>
+                    {/* <button
+                      className="preview"
+                      type=""
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setImgShow(!imgShow);
+                        setImg(arrImg.img_2_data);
+                      }}
+                    >
+                      Preview
+                    </button> */}
+                  </div>
+                ) : (
+                  <label for="">N/A</label>
+                )}
+
+              </div>
+            </div>
+            <div className="conn">
               <label for="">Certificate Agency</label>
               <input
                 type="text"
@@ -310,14 +436,12 @@ function VendorPortal_User() {
                 name="certificate_agency"
                 disabled={hide.disabled}
                 value={
-                  vInfo.certificate_agency === null
-                    ? "N/A"
-                    : vInfo.certificate_agency
+                  vInfo.certificate_agency
                 }
                 onChange={handleChange}
               />
             </div>
-            <div className="con">
+            <div className="conn">
               <label for="">Created Date</label>
               <input
                 type="text"
@@ -334,22 +458,68 @@ function VendorPortal_User() {
                 }}
               />
             </div>
-            <div className="con">
+            <div className="conn">
+              <label for="">PAN CARD</label>
+              <div className="img-upload-preview">
+                <input
+                  type="file"
+                  name="upload_certificate_3"
+                  disabled={hide.disabled}
+                  onChange={handleChange}
+                />
+                {arrImg.img_3_data ? (
+                  <div className="certificate-config img-upload-preview">
+                    <Tooltip placement="top" title="Download " disableInteractive>
+                      <a
+                        href={`data:image/png;base64,${arrImg.img_3_data}`}
+                        download={`${arrImg.img_3_name}.png`}
+                      >
+                        <AiOutlineDownload size={25} style={stylesForReactIcons} />
+                        {/* Download */}
+                      </a>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Preview" disableInteractive>
+                      <div>
+                        <BsFillFileEarmarkSpreadsheetFill
+                          size={25}
+                          style={stylesForReactIcons}
+                          className="preview"
+                          type=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setImgShow(!imgShow);
+                            setImg(arrImg.img_3_data);
+                          }}
+                        />
+                      </div>
+                    </Tooltip>
+                  </div>
+                ) : (
+                  <label for="">N/A</label>
+                )}
+              </div>
+            </div>
+            <div className="conn">
               <label for="">Certificate Expiration Date</label>
               <input
                 type="text"
                 // placeholder="Certificate Expiration Date"
                 name="certificate_expiration_date"
                 disabled={hide.disabled}
+                onFocus={(e) => {
+                  e.target.type = "date";
+                }}
+                onBlur={(e) => {
+                  e.target.type = "text";
+                }}
                 value={
-                  vInfo.certificate_expiration_date === null
-                    ? "N/A"
-                    : vInfo.certificate_expiration_date
+                  vInfo.certificate_expiration_date
                 }
                 onChange={handleChange}
               />
             </div>
-            <div className="con">
+
+            {/* <div className="conn">
               <label for="">Inactive Date</label>
               <input
                 type="text"
@@ -365,165 +535,40 @@ function VendorPortal_User() {
                   e.target.type = "text";
                 }}
               />
-            </div>
+            </div> */}
 
-            <div className="con">
+            <div className="conn">
+
               <label for="">Certificate Registrastion Date</label>
               <input
                 type="text"
                 // placeholder="Certificate Registrastion Date"
                 name="certificate_registration_date"
                 disabled={hide.disabled}
+                onFocus={(e) => {
+                  e.target.type = "date";
+                }}
+                onBlur={(e) => {
+                  e.target.type = "text";
+                }}
                 value={
-                  vInfo.certificate_registration_date === null
-                    ? "N/A"
-                    : vInfo.certificate_registration_date
+                  vInfo.certificate_registration_date
                 }
                 onChange={handleChange}
               />
             </div>
+            {/* <span></span> */}
 
-            <div className="con">
-              <label for="">GST Certificate</label>
-              <input
-                type="file"
-                name="upload_certificate_1"
-                disabled={hide.disabled}
-                onChange={handleChange}
-              />
-              <label for="">MSME Certificate</label>
-              <input
-                type="file"
-                name="upload_certificate_2"
-                disabled={hide.disabled}
-                onChange={handleChange}
-              />
-              <label for="">PAN CARD</label>
-              <input
-                type="file"
-                name="upload_certificate_3"
-                disabled={hide.disabled}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="con">
-
-              <label for="">GST Certificate</label>
-              {arrImg.img_1_data ? (
-                <div className="certificate-config">
-                  <a
-                    href={`data:image/png;base64,${arrImg.img_1_data}`}
-                    download={`${arrImg.img_1_name}.png`}
-                  >
-                    Download
-                  </a>
-                  <button
-                    className="preview"
-                    type=""
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setImgShow(!imgShow);
-                      setImg(arrImg.img_1_data);
-                    }}
-                  >
-                    Preview
-                  </button>
-                </div>
-              ) : (
-                <label for="">N/A</label>
-              )}
-
-              <label for="">MSMECertificate </label>
-              {arrImg.img_2_data ? (
-                <div className="certificate-config">
-                  <a
-                    href={`data:image/png;base64,${arrImg.img_2_data}`}
-                    download={`${arrImg.img_2_name}.png`}
-                  >
-                    Download
-                  </a>
-                  <button
-                    className="preview"
-                    type=""
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setImgShow(!imgShow);
-                      setImg(arrImg.img_2_data);
-                    }}
-                  >
-                    Preview
-                  </button>
-                </div>
-              ) : (
-                <label for="">N/A</label>
-              )}
-              <label for=""> PAN CARD</label>
-              {arrImg.img_3_data ? (
-                <div className="certificate-config">
-                  <a
-                    href={`data:image/png;base64,${arrImg.img_3_data}`}
-                    download={`${arrImg.img_3_name}.png`}
-                  >
-                    Download
-                  </a>
-                  <button
-                    className="preview"
-                    type=""
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setImgShow(!imgShow);
-                      setImg(arrImg.img_3_data);
-                    }}
-                  >
-                    Preview
-                  </button>
-                </div>
-              ) : (
-                <label for="">N/A</label>
-              )}
-
-            </div>
-            <div className="con ">
-
+            <div className="conn ">
               <label for="">Remarks</label>
               <TextareaAutosize
                 type="text"
-                className=" remarks"
+                className=" remark"
                 name="remarks"
                 disabled={hide.disabled}
                 value={vInfo.remarks}
                 onChange={handleChange}
               />
-
-            </div>
-            <div>
-
-              {hide.save ? (
-                <button
-                  onClick={handleUpdateClick}
-                  className="vendor_form_update"
-                  type=""
-                >
-                  Update
-                </button>
-              ) : (
-                <button
-                  type=""
-                  onClick={updateAndSaveData}
-                  className="vendor_form_update"
-                >
-                  Save
-                </button>
-              )}
-
-              {
-                <button onClick={(e) => {
-                  e.preventDefault()
-                  window.location.reload()
-                }} className="vendor_form_del">
-                  Cancel
-                </button>
-              }
             </div>
             {imgShow && (
               <div className="img-thumbnails">
@@ -542,6 +587,34 @@ function VendorPortal_User() {
                 </button>
               </div>
             )}
+          </div>
+          <div className="button-collection">
+            {hide.save ? (
+              <button
+                onClick={handleUpdateClick}
+                className="vendor_form_updates"
+                type=""
+              >
+                Update
+              </button>
+            ) : (
+              <button
+                type=""
+                onClick={updateAndSaveData}
+                className="vendor_form_updates"
+              >
+                Save
+              </button>
+            )}
+
+            {
+              <button onClick={(e) => {
+                e.preventDefault()
+                window.location.reload()
+              }} className="vendor_form_dels">
+                Cancel
+              </button>
+            }
           </div>
         </form>
       </> : <Loading />}

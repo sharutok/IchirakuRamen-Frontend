@@ -112,14 +112,6 @@ function ResetPassword() {
         })
       }, 2000)
     }
-
-
-
-
-
-
-
-
   }
   return (
     <div>

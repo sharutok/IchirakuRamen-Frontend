@@ -10,6 +10,7 @@ import Cookies from 'universal-cookie'
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
+import { Link } from 'react-router-dom'
 
 export default function PositionedMenu() {
     const cookies = new Cookies()
@@ -69,6 +70,11 @@ export default function PositionedMenu() {
                     </Stack>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem>
+                    <Link style={{ textDecoration: "none" }} to={`/user/permission`}>
+                        User Permission
+                    </Link>
+                </MenuItem>
                 <MenuItem onClick={e => {
                     const cookies = new Cookies()
                     cookies.remove("user", { path: "/acc" })

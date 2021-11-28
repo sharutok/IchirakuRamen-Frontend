@@ -1,12 +1,66 @@
-.con button {
+.status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 10rem;
+  font-weight: 450;
+  font-size: larger;
+}
+
+.acc-vendor-pages {
+  margin-top: -1rem;
+  padding: 1rem;
+  display: -ms-grid;
+  display: grid;
+  row-gap: 1rem;
+  -webkit-column-gap: 5em;
+          column-gap: 5em;
+  -ms-grid-columns: 30rem 30rem;
+      grid-template-columns: 30rem 30rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.acc-vendor-pages .cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.acc-vendor-pages .cont input {
+  width: 15rem;
+  height: 1.5rem;
+  -webkit-box-shadow: 0px 0px 30px #d2d2d2;
+          box-shadow: 0px 0px 30px #d2d2d2;
+  font-size: medium;
+}
+
+.acc-vendor-pages .cont label {
+  color: #6d6d6d;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.cont button {
   width: 5rem;
   background-color: #c5c5c5;
+  background-color: darkblue;
   cursor: pointer;
   border-radius: 5px;
   margin-left: 1rem;
 }
 
-.con .img-thumbnail {
+.cont .img-thumbnail {
   position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23,12 +77,11 @@
   height: 100%;
 }
 
-.con .img-thumbnail img {
+.cont .img-thumbnail img {
   margin-top: 2rem;
 }
 
-.con .img-thumbnail button {
-  margin-top: 1rem;
+.cont .img-thumbnail button {
   left: 100%;
   border-radius: 2px;
   width: 3rem;
@@ -37,7 +90,7 @@
   background-color: #ec6a6a;
 }
 
-.con .img-thumbnail button:hover {
+.cont .img-thumbnail button:hover {
   background-color: red;
 }
 
@@ -48,44 +101,55 @@
   right: 40%;
 }
 
-.status {
-  margin-left: 1rem;
+.certificate-config {
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .certificate-config button {
-  border: none;
-  padding: 0.3rem 1rem;
-  background-color: #9cfafa;
-}
-
-.certificate-config button:hover {
-  background-color: #78f7f7;
+  font-weight: 500;
+  color: #353535;
+  background-color: #ebebeb;
+  border: 10px;
+  cursor: pointer;
+  height: 2rem;
+  -webkit-box-shadow: 5px 5px 30px #b6b6b6;
+          box-shadow: 5px 5px 30px #b6b6b6;
 }
 
 .all-buttons {
-  margin-bottom: 3rem;
+  margin-top: -0.5rem;
+  margin-left: 9rem;
 }
 
 .remarks {
-  background-color: white;
-  border: 3px solid #969696;
+  color: #8a0606;
   width: 15rem;
   height: 5rem;
-  min-width: 5rem;
-  min-height: 4rem;
+  min-width: 15rem;
+  min-height: 5rem;
   font-size: larger;
   max-width: 15rem;
   max-height: 5rem;
-  color: red;
+  color: black;
 }
 
 .vendor_form_send_link {
   background-color: #f0f0f0;
-  border: none;
-  border-radius: 5px;
   font-size: small;
   text-decoration: none;
-  font-family: "Work Sans", sans-serif;
-  padding: 0 10px;
+}
+
+.status-inputs {
+  color: #6d6d6d;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.status-inputs .radios {
+  margin-top: -1rem;
+  margin-left: 14rem;
+  margin-bottom: 1rem;
 }
 /*# sourceMappingURL=VendorPortalAccVendorDetails.css.map */

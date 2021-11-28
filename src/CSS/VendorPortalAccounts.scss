@@ -3,7 +3,8 @@ $font: "Andada Pro", serif;
 $font-size: 1.2rem;
 $button-padding: 0.3rem 0.7rem;
 body {
-  background-color: rgb(255, 255, 255);
+  //background-color: rgb(255, 255, 255);
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -15,7 +16,7 @@ body {
   margin-left: 5rem;
   margin-bottom: 2rem;
   input {
-    background-color: rgb(248, 238, 238);
+    background-color: rgb(255, 255, 255);
     box-shadow: 5px 5px 20px #cfcfcf;
     border-radius: 0;
     border-top-left-radius: 5px;
@@ -56,6 +57,8 @@ body {
     padding: 1px;
     border-radius: 0;
     width: $width;
+
+    font-size: medium;
   }
   .delete {
     padding: $button-padding;
@@ -122,17 +125,19 @@ body {
   // width: auto;
   // border-top-left-radius: 5px;
   // border-top-right-radius: 5px;
+  text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: flex;
   font-size: 1.2rem;
   font-weight: bolder;
   text-align: center;
   label {
-    background-color: antiquewhite;
+    background: rgb(170, 170, 170);
+    padding: 0.1rem;
     // margin: 0 0 0 0.5rem;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
-    // padding: 1px;
+    // font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    //   "Lucida Sans", Arial, sans-serif;
+    // // padding: 1px;
     width: $width;
     border-radius: 0;
   }
@@ -140,7 +145,7 @@ body {
 
 .black > .acc_page {
   input {
-    background-color: #cfcfcf;
+    background-color: #ececec;
     // box-shadow: 5px 5px 30px #f5f5f5;
   }
 }
@@ -151,24 +156,9 @@ body {
   }
 }
 .control-panel {
-  margin-top: -5.5rem;
+  margin-top: -5rem;
   border-top-right-radius: 5px;
-  // background-color: #f8f398;
-  background-image: linear-gradient(
-    to top,
-    #edda5b,
-    #e1dd61,
-    #d6e068,
-    #cae370,
-    #bfe579,
-    #c1e277,
-    #c4e075,
-    #c6dd73,
-    #d5d468,
-    #e3cb61,
-    #f0c15e,
-    #fbb75f
-  );
+  background: rgb(170, 170, 170);
   // box-shadow: 5px 5px 20px rgb(235, 235, 235);
   position: absolute;
   height: 100%;
@@ -208,8 +198,6 @@ body {
 //----------------------------------------------------------------------
 $width: 10rem;
 $font-family1: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-// $font-family2:
-// $font-family3:
 $margin-left: 5rem;
 $font-weight: bolder;
 .acc-vendor-page {
@@ -223,7 +211,7 @@ $font-weight: bolder;
   border-radius: 2px;
   margin-left: $margin-left;
   input {
-    background-color: rgb(255, 255, 255);
+    // background-color: rgb(211, 38, 38);
     width: auto;
     height: auto;
     font-size: 2rem;
@@ -232,8 +220,8 @@ $font-weight: bolder;
 
   label {
     font-weight: $font-weight;
-    font-family: $font-family1;
-    // background-color: palevioletred;
+    // font-family: $font-family1;
+    //background-color: palevioletred;
   }
 }
 .con {
@@ -288,14 +276,15 @@ $font-weight: bolder;
 
 .pagination {
   position: absolute;
-  // background-color: #c6dd73;
-  // display: flex;
-  // justify-content: center;
-  top: 95%;
+  //background-color: #c6dd73;
+  display: flex;
+  justify-content: center;
+  top: 87%;
   width: 100%;
-  margin: 3rem 0 5rem 0;
+  margin: 3rem 0 1rem 0;
 
   button {
+    margin-top: 1rem;
     margin-left: 1rem;
     font-weight: bold;
     font-size: 16px;
@@ -324,9 +313,13 @@ $font-weight: bolder;
     box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
   }
 }
-// body {
-//   background-color: red;
-// }
+.page {
+  margin-top: 1rem;
+  position: absolute;
+  top: 94%;
+  font-weight: bold;
+}
+
 .popover {
   position: absolute;
   background-color: rgb(223, 215, 215);
@@ -374,12 +367,7 @@ $font-weight: bolder;
     transform: translateY(2px);
   }
 }
-.page {
-  margin-left: 1rem;
-  position: absolute;
-  top: 95%;
-  font-weight: bold;
-}
+
 .badge-container {
   background-color: rgb(248, 238, 238);
   display: grid;
@@ -404,5 +392,177 @@ $font-weight: bolder;
   label {
     font-weight: bolder;
     margin-left: 1rem;
+  }
+}
+$border: none;
+$margin-left: 1rem;
+$border-radius: 4px;
+$padding: 0.5rem 1.5rem;
+$font: "Comfortaa", cursive;
+$fontweight: bolder;
+.heading {
+  // text-align: center;
+  margin-left: $margin-left;
+  font-family: $font;
+  font-weight: $fontweight;
+}
+
+.vendor_form {
+  margin: 0;
+  // padding: 0;
+  // background-color: firebrick;
+  display: flexbox;
+  justify-content: flex-end;
+}
+.container {
+  // background-color: rgb(233, 233, 233);
+  // width: 70rem;
+  // padding: 2rem;
+  overflow: hidden;
+  // border: 2px solid;
+  display: grid;
+  grid-template-columns: 40rem 40rem;
+  grid-row-gap: 1rem;
+  margin-left: $margin-left;
+  label {
+    color: rgb(0, 0, 0);
+    font-size: large;
+    font-weight: $fontweight;
+  }
+  .con {
+    display: grid;
+    grid-template-columns: auto;
+  }
+}
+input {
+  border: none;
+  border-radius: 5px;
+  width: auto;
+  // height: 2rem;
+  font-size: larger;
+  font-family: "Work Sans", sans-serif;
+  // padding: 0 10px;
+}
+.supplier_no_btn {
+  color: rgb(128, 187, 96);
+  border: none;
+  margin-left: 1rem;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-family: $font;
+  font-weight: $fontweight;
+}
+
+.supplier_no_ip {
+  width: 10.5rem;
+  margin-left: $margin-left + 4rem;
+  height: 2rem;
+  background-color: rgb(235, 197, 197);
+  font-family: $font;
+}
+
+.vendor_form_del {
+  border: $border;
+  margin-left: $margin-left;
+  border-radius: $border-radius;
+  padding: $padding;
+  color: rgb(255, 93, 93);
+  font-family: $font;
+  font-weight: $fontweight;
+}
+.vendor_form_new {
+  color: rgb(106, 188, 255);
+  border: $border;
+  border-radius: $border-radius;
+  padding: $padding;
+  font-family: $font;
+  font-weight: $fontweight;
+}
+.vendor_form_send_link {
+  color: rgb(123, 126, 88);
+  border: $border;
+  border-radius: $border-radius;
+  padding: $padding;
+  font-family: $font;
+  margin-left: $margin-left;
+  font-weight: $fontweight;
+}
+.vendor_form_update {
+  color: rgb(182, 104, 255);
+  border: $border;
+  border-radius: $border-radius;
+  padding: $padding;
+  font-family: $font;
+  margin-left: $margin-left;
+  font-weight: $fontweight;
+}
+
+.vendor_form_update:hover,
+.vendor_form_send_link:hover,
+.vendor_form_new:hover,
+.vendor_form_del:hover,
+.supplier_no_btn:hover {
+  filter: brightness(70%);
+}
+.vendor_form_update:active,
+.vendor_form_send_link:active,
+.vendor_form_new:active,
+.vendor_form_del:active,
+.supplier_no_btn:active {
+  // background-color: #3e8e41;
+  box-shadow: 0 2px rgb(160, 160, 160);
+  transform: translateY(2px);
+}
+
+.message1 {
+  position: absolute;
+  background-color: rgb(185, 218, 255);
+  border-left-style: solid;
+  border-color: rgb(0, 153, 255);
+  padding: 0.3rem 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.message2 {
+  position: absolute;
+  background-color: rgb(185, 218, 255);
+  border-left-style: solid;
+  border-color: rgb(0, 153, 255);
+  padding: 0.3rem 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+input[type="radio"] {
+  width: 1rem;
+}
+.radio {
+  display: flex;
+
+  label {
+    margin-top: 0.7rem;
+  }
+}
+
+.img-thumbnails {
+  position: absolute;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  height: 50rem;
+  display: flex;
+  justify-content: center;
+  img {
+    background-color: burlywood;
+  }
+  button {
+    cursor: pointer;
+    margin-top: 1rem;
+    left: 100%;
+    border-radius: 5px;
+    width: 3rem;
+    height: 2rem;
+    border: none;
+    background-color: rgb(236, 106, 106);
+  }
+  button:hover {
+    background-color: rgb(221, 31, 31);
   }
 }

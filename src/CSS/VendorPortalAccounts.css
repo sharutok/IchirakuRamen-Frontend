@@ -1,7 +1,8 @@
 body {
-  background-color: white;
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .smart-search {
@@ -10,7 +11,7 @@ body {
 }
 
 .smart-search input {
-  background-color: #f8eeee;
+  background-color: white;
   -webkit-box-shadow: 5px 5px 20px #cfcfcf;
           box-shadow: 5px 5px 20px #cfcfcf;
   border-radius: 0;
@@ -52,6 +53,7 @@ body {
   padding: 1px;
   border-radius: 0;
   width: 12rem;
+  font-size: medium;
 }
 
 .acc_page .delete {
@@ -125,6 +127,7 @@ body {
 }
 
 .acc_page_label {
+  text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -135,14 +138,14 @@ body {
 }
 
 .acc_page_label label {
-  background-color: antiquewhite;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background: #aaaaaa;
+  padding: 0.1rem;
   width: 12rem;
   border-radius: 0;
 }
 
 .black > .acc_page input {
-  background-color: #cfcfcf;
+  background-color: #ececec;
 }
 
 .white > .acc_page input {
@@ -150,12 +153,9 @@ body {
 }
 
 .control-panel {
-  margin-top: -5.5rem;
+  margin-top: -5rem;
   border-top-right-radius: 5px;
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#edda5b), color-stop(#e1dd61), color-stop(#d6e068), color-stop(#cae370), color-stop(#bfe579), color-stop(#c1e277), color-stop(#c4e075), color-stop(#c6dd73), color-stop(#d5d468), color-stop(#e3cb61), color-stop(#f0c15e), to(#fbb75f));
-  background-image: linear-gradient(to top, #edda5b, #e1dd61, #d6e068, #cae370, #bfe579, #c1e277, #c4e075, #c6dd73, #d5d468, #e3cb61, #f0c15e, #fbb75f);
-  -webkit-box-shadow: 5px 5px 20px #ebebeb;
-          box-shadow: 5px 5px 20px #ebebeb;
+  background: #aaaaaa;
   position: absolute;
   height: 100%;
 }
@@ -188,6 +188,16 @@ body {
   display: grid;
   -ms-grid-columns: auto auto;
       grid-template-columns: auto auto;
+  -webkit-box-shadow: 5px 5px 10px #dddcdc;
+          box-shadow: 5px 5px 10px #dddcdc;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .right-view {
@@ -208,7 +218,6 @@ body {
 }
 
 .supplier_number input {
-  background-color: white;
   width: auto;
   height: auto;
   font-size: 2rem;
@@ -217,7 +226,6 @@ body {
 
 .supplier_number label {
   font-weight: bolder;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .con {
@@ -267,16 +275,20 @@ body {
 }
 
 .pagination {
+  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 3rem 0 3rem 0;
+  top: 87%;
+  width: 100%;
+  margin: 3rem 0 1rem 0;
 }
 
 .pagination button {
+  margin-top: 1rem;
   margin-left: 1rem;
   font-weight: bold;
   font-size: 16px;
@@ -285,8 +297,8 @@ body {
   background-color: #fff;
   border: 1px solid var(--blue);
   cursor: pointer;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .pagination button:hover {
@@ -305,6 +317,13 @@ body {
   outline: none;
   -webkit-box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
           box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+}
+
+.page {
+  margin-top: 1rem;
+  position: absolute;
+  top: 94%;
+  font-weight: bold;
 }
 
 .popover {
@@ -378,10 +397,6 @@ body {
           transform: translateY(2px);
 }
 
-.page {
-  font-weight: bold;
-}
-
 .badge-container {
   background-color: #f8eeee;
   display: -ms-grid;
@@ -397,7 +412,7 @@ body {
   width: fit-content;
   -webkit-box-shadow: 5px 5px 10px #cfcfcf;
           box-shadow: 5px 5px 10px #cfcfcf;
-  margin-left: -20rem;
+  margin: 1rem;
 }
 
 .badge-container .badge {
@@ -416,5 +431,192 @@ body {
 .badge-container label {
   font-weight: bolder;
   margin-left: 1rem;
+}
+
+.heading {
+  margin-left: 1rem;
+  font-family: "Comfortaa", cursive;
+  font-weight: bolder;
+}
+
+.vendor_form {
+  margin: 0;
+  display: flexbox;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.container {
+  overflow: hidden;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 40rem 40rem;
+      grid-template-columns: 40rem 40rem;
+  grid-row-gap: 1rem;
+  margin-left: 1rem;
+}
+
+.container label {
+  color: black;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.container .con {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto;
+      grid-template-columns: auto;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
+  width: auto;
+  font-size: larger;
+  font-family: "Work Sans", sans-serif;
+}
+
+.supplier_no_btn {
+  color: #80bb60;
+  border: none;
+  margin-left: 1rem;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-family: "Comfortaa", cursive;
+  font-weight: bolder;
+}
+
+.supplier_no_ip {
+  width: 10.5rem;
+  margin-left: 5rem;
+  height: 2rem;
+  background-color: #ebc5c5;
+  font-family: "Comfortaa", cursive;
+}
+
+.vendor_form_del {
+  border: none;
+  margin-left: 1rem;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  color: #ff5d5d;
+  font-family: "Comfortaa", cursive;
+  font-weight: bolder;
+}
+
+.vendor_form_new {
+  color: #6abcff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-family: "Comfortaa", cursive;
+  font-weight: bolder;
+}
+
+.vendor_form_send_link {
+  color: #7b7e58;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-family: "Comfortaa", cursive;
+  margin-left: 1rem;
+  font-weight: bolder;
+}
+
+.vendor_form_update {
+  color: #b668ff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-family: "Comfortaa", cursive;
+  margin-left: 1rem;
+  font-weight: bolder;
+}
+
+.vendor_form_update:hover,
+.vendor_form_send_link:hover,
+.vendor_form_new:hover,
+.vendor_form_del:hover,
+.supplier_no_btn:hover {
+  -webkit-filter: brightness(70%);
+          filter: brightness(70%);
+}
+
+.vendor_form_update:active,
+.vendor_form_send_link:active,
+.vendor_form_new:active,
+.vendor_form_del:active,
+.supplier_no_btn:active {
+  -webkit-box-shadow: 0 2px #a0a0a0;
+          box-shadow: 0 2px #a0a0a0;
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
+}
+
+.message1 {
+  position: absolute;
+  background-color: #b9daff;
+  border-left-style: solid;
+  border-color: #0099ff;
+  padding: 0.3rem 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.message2 {
+  position: absolute;
+  background-color: #b9daff;
+  border-left-style: solid;
+  border-color: #0099ff;
+  padding: 0.3rem 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+input[type="radio"] {
+  width: 1rem;
+}
+
+.radio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.radio label {
+  margin-top: 0.7rem;
+}
+
+.img-thumbnails {
+  position: absolute;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  width: 100%;
+  height: 50rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.img-thumbnails img {
+  background-color: burlywood;
+}
+
+.img-thumbnails button {
+  cursor: pointer;
+  margin-top: 1rem;
+  left: 100%;
+  border-radius: 5px;
+  width: 3rem;
+  height: 2rem;
+  border: none;
+  background-color: #ec6a6a;
+}
+
+.img-thumbnails button:hover {
+  background-color: #dd1f1f;
 }
 /*# sourceMappingURL=VendorPortalAccounts.css.map */

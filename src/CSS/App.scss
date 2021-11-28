@@ -7,17 +7,21 @@
   background: rgb(0, 0, 0);
   background: rgb(0, 0, 0);
   background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 10%,
-    rgba(246, 61, 61, 1) 99%
-  );
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(0, 0, 0, 1) 10%,
+  //   rgba(246, 61, 61, 1) 99%
+  // );
+  background: rgb(255, 255, 255) 99%;
   h1 {
     margin-left: -9rem;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
+    // font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    //   "Lucida Sans", Arial, sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "Outfit", sans-serif;
     margin-right: auto;
-    color: #ffffff;
+    //color: #ffffff;
+    color: grey;
     font-size: 2rem;
   }
   img {
@@ -26,4 +30,8 @@
     padding: 0.5rem;
   }
   margin-bottom: 1.5rem;
+  span {
+    color: black;
+    font-weight: 900;
+  }
 }
