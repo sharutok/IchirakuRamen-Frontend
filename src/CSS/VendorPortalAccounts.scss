@@ -469,6 +469,7 @@ input {
   color: rgb(255, 93, 93);
   font-family: $font;
   font-weight: $fontweight;
+  cursor: pointer;
 }
 .vendor_form_new {
   color: rgb(106, 188, 255);
@@ -477,6 +478,7 @@ input {
   padding: $padding;
   font-family: $font;
   font-weight: $fontweight;
+  cursor: pointer;
 }
 .vendor_form_send_link {
   color: rgb(123, 126, 88);
@@ -486,6 +488,7 @@ input {
   font-family: $font;
   margin-left: $margin-left;
   font-weight: $fontweight;
+  cursor: pointer;
 }
 .vendor_form_update {
   color: rgb(182, 104, 255);
@@ -495,6 +498,7 @@ input {
   font-family: $font;
   margin-left: $margin-left;
   font-weight: $fontweight;
+  cursor: pointer;
 }
 
 .vendor_form_update:hover,

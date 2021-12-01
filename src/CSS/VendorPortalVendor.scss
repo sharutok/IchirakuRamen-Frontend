@@ -20,14 +20,14 @@
 }
 .containerz {
   margin-left: 1rem;
-  //background-color: rgb(37, 141, 115);
   display: grid;
-  gap: 0.5rem;
-  grid-template-columns: 30rem 30rem 30rem;
+  gap: 1rem;
+  grid-template-columns: 25rem 25rem 25rem;
+  justify-content: center;
   .conn {
     //background-color: forestgreen;
     display: grid;
-    gap: 1rem;
+    // gap: 1rem;
     grid-template-columns: 20rem;
     input {
       background-color: white;
@@ -40,7 +40,7 @@
       font-size: small;
       //background-color: cadetblue;
       color: rgb(109, 109, 109);
-      font-size: large;
+      font-size: medium;
       font-weight: bolder;
       text-transform: uppercase;
     }
@@ -78,6 +78,7 @@ $button-padding: 0.3rem 0.7rem;
   color: red;
 }
 .button-collection {
+  margin-left: 3.5rem;
   .vendor_form_updates {
     background-color: rgb(206, 206, 206);
     color: rgb(96, 158, 187);

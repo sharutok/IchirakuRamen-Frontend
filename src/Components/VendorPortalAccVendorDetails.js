@@ -328,7 +328,7 @@ function VendorPortalAccVendorDetails() {
             />
           </div>
           <div className="cont">
-            <label for="">Certificate Expiration Date</label>
+            <label for="">Certificate EXPY Date</label>
             <input
               type="text"
               onFocus={(e) => {
@@ -355,7 +355,7 @@ function VendorPortalAccVendorDetails() {
             />
           </div>
           <div className="cont">
-            <label for="">Certificate Registrastion Date</label>
+            <label for="">Certificate REG Date</label>
             <input
               type="text"
               // placeholder="Certificate Registrastion Date"

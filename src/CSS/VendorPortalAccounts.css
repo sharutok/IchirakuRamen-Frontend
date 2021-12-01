@@ -504,6 +504,7 @@ input {
   color: #ff5d5d;
   font-family: "Comfortaa", cursive;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 .vendor_form_new {
@@ -513,6 +514,7 @@ input {
   padding: 0.5rem 1.5rem;
   font-family: "Comfortaa", cursive;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 .vendor_form_send_link {
@@ -523,6 +525,7 @@ input {
   font-family: "Comfortaa", cursive;
   margin-left: 1rem;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 .vendor_form_update {
@@ -533,6 +536,7 @@ input {
   font-family: "Comfortaa", cursive;
   margin-left: 1rem;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 .vendor_form_update:hover,

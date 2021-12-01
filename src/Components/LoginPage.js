@@ -33,12 +33,13 @@ function LoginPage() {
   async function handleOnClick(e) {
     e.preventDefault()
     if (loginData.password && loginData.username) {
-
       try {
         const isOk = await axios.post(LoginURL, loginData)
-        console.log(isOk.status);
+        const { plant, username, role } = isOk.data.isUser
         const cookies = new Cookies()
-        cookies.set("user", loginData.username, { path: "/" })
+        cookies.set("user", username, { path: "/" })
+        cookies.set("plant", plant, { path: "/" })
+        cookies.set("role", role, { path: "/" })
         setError({ state: false, content: "" })
         setTimeout(async () => {
           console.log("sent");
@@ -85,11 +86,9 @@ function LoginPage() {
           loading={loading}
           loadingPosition="start"
           variant="contained"
-
         >
           LogIn
         </LoadingButton>
-
         <Link
           sx={{ ml: 13, mt: 2 }}
           href="/account/password/reset"

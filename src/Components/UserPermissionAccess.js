@@ -1,98 +1,157 @@
-import React, { useState } from 'react'
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import FormLabel from '@mui/material/FormLabel';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-const getUser = ``
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+import { Line } from 'react-chartjs-2'
+// import DoneIcon from '@mui/icons-material/Done';
+// import CloseIcon from '@mui/icons-material/Close';
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import UpdateIcon from '@mui/icons-material/Update';
+import Snackbar from '@mui/material/Snackbar';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import "../CSS/UserPermissionAccess.scss"
+const getUser = `http://localhost:8080/login/user/all`
+const newUser = `http://localhost:8080/login/create/user`
+const UpdateUser = `http://localhost:8080/`
+const DeleteUser = `http://localhost:8080/`
 
 function UserPermissionAccess() {
-
-
-    let arr = []
-    // const plants = {
-    //     "Chinchwad": ["CD (CHD DEALERS)", "CE (CHD EQPT)", "CG (CHD PWRG)", "CH (CHD CONS)", "CJ (CHD PROJ)", "CW (CHD WAPS)", "PE (PMP EQPT)"],
-    //     "Raipur": ["RC (RPR CONS)"],
-    //     "Chennai": ["CC (CHN CONS)"],
-    //     "Silvasa": ["SC (SIL CONS)"],
-    //     "HO": ["HO (HEAD OFFICE)",]
-    // }
-    const plants = {
-        "Chinchwad": ["CHD"],
-        "Raipur": ["RPR"],
-        "Chennai": ["CHN"],
-        "Silvasa": ["SIL"],
-        "HO": ["HO",]
-    }
-
-    Object.keys(plants).map(plant => {
-        arr.push(plant)
+    const cookie = new Cookies()
+    const user = cookie.get("user")
+    const plant = cookie.get('plant')
+    const role = cookie.get('role')
+    const [snack, setSnack] = useState({
+        content: "", state: false
     })
+    const [users, setUsers] = useState([])
+    const [mess, setMess] = useState({
+        content: "", state: false
+    })
+    const [hide, setHide] = useState(false)
+    const [values, setValue] = useState({
+        email: "", username: "", password: "", verify_password: "", plant: "", role: ""
+    })
+    const getData = async () => {
+        let respond = await axios.get(getUser)
+        const { result } = respond.data
+        setUsers(result)
+    }
+    const postData = async () => {
+        console.log(values);
+        const res = await axios.post(newUser, values)
+        console.log(res);
+    }
+    useEffect(() => {
+        getData()
+    }, [])
 
-
-    const [op_plant, setOp_plant] = useState([])
-
-    const handleChange = (e) => {
+    function handleChange(e) {
         let name = e.target.name
         let value = e.target.value
-        // var chars = name.split(',');
-        setOp_plant({
-            ...op_plant,
-            [name]: name,
-        });
+        setValue({ ...values, [name]: value })
     }
+    function handelClick(e) {
+        e.preventDefault()
+        if (values.email && values.password && values.verify_password && values.plant && values.role) {
+            if (values.password !== values.verify_password) {
+                return setMess({ content: "passwords does'nt match", state: true })
+            }
+            setMess({ content: "", state: false })
+            postData()
+            setSnack({ state: true, content: "user created successfully" })
+            setTimeout(() => {
+                setSnack({ state: false, content: "" })
+            }, 2000)
+
+        }
+    }
+
 
     return (
         <div>
-            <form>
-
-                <input type="text" name="" value="" placeholder="Enter User" />
-                <button type="">check</button>
-                <FormGroup row>
-                    {arr.map(i => {
-                        return (
-                            <FormControlLabel onChange={handleChange} control={<Checkbox />} name={plants[i]} label={i} />
-                        )
-                    })}
-                </FormGroup>
-                <div>
-                    button
+            {hide && <div className="create-new-block">
+                <Snackbar
+                    open={snack.state}
+                    autoHideDuration={1000}
+                    message={snack.content}
+                // action={action}
+                />
+                <h1>Create New User</h1>
+                <div className="create-new-container" >
+                    <TextField size="small" autoComplete="off" className="filled-basic" label="Email ID" name="email" variant="outlined" onChange={handleChange} />
+                    <TextField size="small" autoComplete="off" className="filled-basic" label="Username" name="username" variant="outlined" onChange={handleChange} />
+                    <TextField size="small" autoComplete="off" className="filled-basic" type="password" label="Password" name="password" error={mess.state} helperText={mess.content} variant="outlined" onChange={handleChange} />
+                    <TextField size="small" autoComplete="off" className="filled-basic" type="password" label="Verify Passsword" name="verify_password" error={mess.state} variant="outlined" onChange={handleChange} />
+                    <FormControl size="small" autoComplete="off" sx={{ minWidth: 120, }}>
+                        <InputLabel id="demo-simple-select-label">Plant</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={values.plant}
+                            label="Plant"
+                            name="plant"
+                            onChange={handleChange}>
+                            <MenuItem onChange={handleChange} value={"CHI"}>CHINCHWAD</MenuItem>
+                            <MenuItem onChange={handleChange} value={"SIL"}>SILVASA</MenuItem>
+                            <MenuItem onChange={handleChange} value={"RPR"}>RAIPUR</MenuItem>
+                            <MenuItem onChange={handleChange} value={"HO"}>HEAD OFFICE</MenuItem>
+                            <MenuItem onChange={handleChange} value={"CHN"}>CHENNAI</MenuItem>
+                            {role === "ADMIN" && <MenuItem onChange={handleChange} value={"ALL"}>ALL</MenuItem>}
+                        </Select>
+                    </FormControl>
+                    <FormControl size="small" sx={{ minWidth: 120 }}  >
+                        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={values.role}
+                            label="Role"
+                            name="role"
+                            onChange={handleChange}>
+                            <MenuItem onChange={handleChange} value={"USER"}>User</MenuItem>
+                            <MenuItem onChange={handleChange} value={"PLANT_HEAD"}>Plant Head</MenuItem>
+                            {role === "ADMIN" && <MenuItem onChange={handleChange} value={"ADMIN"}>Admin</MenuItem>}
+                        </Select>
+                    </FormControl>
                 </div>
-            </form>
-            {/* <Accordion>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header">
-                    <Typography>Create User</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <div>
-                        <input type="text" name="" value="" placeholder="Email-Id" />
-                        <input type="text" name="" value="" placeholder="Username" />
-                        <input type="text" name="" value="" placeholder="Password" />
-                        <input type="" name="" value="" placeholder="Confirm Password" />
-                    </div>
-                    <FormLabel >Plant</FormLabel>
-                    <FormGroup row>
-                        {arr.map(i => {
-                            return (
-                                <FormControlLabel onChange={handleChange} control={<Checkbox />} name={plants[i]} label={i} />
-                            )
-                        })}
-                    </FormGroup>
-                    <button type="" onClick={""} >Create</button>
-                </AccordionDetails>
-            </Accordion> */}
+                <div className="Button">
+                    <button className="vendor_form_send_link" onClick={handelClick} type="">Success</button>
+                    <button className="vendor_form_del" onClick={() => setHide(!hide)} type="">Close</button>
+                </div>
+            </div>}
+            <div className="grid-view">
+                <table>
+                    <h4 className="create_new" onClick={() => setHide(!hide)}>create new</h4>
+                    <tr>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Plant</th>
+                        <th>User</th>
+                        <th>Active</th>
+                    </tr>
+                    {users.map(x => {
+                        const { email, username, plant, role, active } = x
+                        return (<>
+                            <tr>
+                                <td>{email}</td>
+                                <td>{username}</td>
+                                <td>{plant}</td>
+                                <td>{role}</td>
+                                <td style={{ color: active === "1" ? "green" : 'red', fontWeight: "bolder" }}>{active === "1" ? "Yes" : "No"}</td>
+                            </tr>
+                        </>)
+                    })}
+                </table>
+            </div>
 
-
-        </div>
+        </div >
     )
+
 }
 
 export default UserPermissionAccess

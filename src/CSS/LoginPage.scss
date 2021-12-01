@@ -5,8 +5,9 @@
 .card {
   padding: 2rem;
   width: fit-content;
-  border: 2px solid rgb(114, 109, 109);
-  background-color: #fff5dd;
+  // border: 2px solid rgb(114, 109, 109);
+  box-shadow: 10px 10px 20px rgb(130, 130, 130);
+  background-color: #ffffff;
   border-radius: 10px;
   display: grid;
   grid-template-columns: auto;
@@ -26,11 +27,11 @@
   }
   Button {
     // background-color: #f44336;
-    background-color: #e57373;
+    background-color: #b3b1b1;
     // color: black;
   }
   Button:hover {
-    background-color: #e68686;
+    background-color: #d4d3d3;
   }
 }
 p {

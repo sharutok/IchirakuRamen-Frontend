@@ -22,15 +22,17 @@
   margin-left: 1rem;
   display: -ms-grid;
   display: grid;
-  gap: 0.5rem;
-  -ms-grid-columns: 30rem 30rem 30rem;
-      grid-template-columns: 30rem 30rem 30rem;
+  gap: 1rem;
+  -ms-grid-columns: 25rem 25rem 25rem;
+      grid-template-columns: 25rem 25rem 25rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .containerz .conn {
   display: -ms-grid;
   display: grid;
-  gap: 1rem;
   -ms-grid-columns: 20rem;
       grid-template-columns: 20rem;
 }
@@ -47,7 +49,7 @@
 .containerz .conn label {
   font-size: small;
   color: #6d6d6d;
-  font-size: large;
+  font-size: medium;
   font-weight: bolder;
   text-transform: uppercase;
 }
@@ -79,6 +81,10 @@
   max-width: 15rem;
   max-height: 3rem;
   color: red;
+}
+
+.button-collection {
+  margin-left: 3.5rem;
 }
 
 .button-collection .vendor_form_updates {

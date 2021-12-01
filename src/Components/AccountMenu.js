@@ -14,6 +14,9 @@ import { Link } from 'react-router-dom'
 
 export default function PositionedMenu() {
     const cookies = new Cookies()
+    const plant = cookies.get("plant")
+    const user = cookies.get("user")
+    const role = cookies.get("role")
     const [auth, setAuth] = React.useState((cookies.get("user")))
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [opens, setOpens] = React.useState(false);
@@ -71,13 +74,14 @@ export default function PositionedMenu() {
                 </MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem>
-                    <Link style={{ textDecoration: "none" }} to={`/user/permission`}>
+                    {["PLANT HEAD", "ADMIN"].includes(role) && <Link style={{ textDecoration: "none" }} to={`/user/permission`}>
                         User Permission
-                    </Link>
+                    </Link>}
                 </MenuItem>
                 <MenuItem onClick={e => {
-                    const cookies = new Cookies()
-                    cookies.remove("user", { path: "/acc" })
+                    cookies.remove("user", { path: "/" })
+                    cookies.remove("plant", { path: "/" })
+                    cookies.remove("role", { path: "/" })
                     console.log(cookies.remove("user"));
                     handleToggle()
                     handleClose()

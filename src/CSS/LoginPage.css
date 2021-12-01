@@ -12,8 +12,9 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  border: 2px solid #726d6d;
-  background-color: #fff5dd;
+  -webkit-box-shadow: 10px 10px 20px #828282;
+          box-shadow: 10px 10px 20px #828282;
+  background-color: #ffffff;
   border-radius: 10px;
   display: -ms-grid;
   display: grid;
@@ -36,11 +37,11 @@
 }
 
 .card Button {
-  background-color: #e57373;
+  background-color: #b3b1b1;
 }
 
 .card Button:hover {
-  background-color: #e68686;
+  background-color: #d4d3d3;
 }
 
 p {

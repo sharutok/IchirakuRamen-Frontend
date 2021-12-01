@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 import LoginPage from "./LoginPage";
+import UserPermissionAccessDetails from "./UserPermissionAccessDetails"
 import VendorPortalAccounts from "./VendorPortalAccounts";
 import VendorPortalAccVendorDetails from "./VendorPortalAccVendorDetails";
 import ResetPassword from "./ResetPassword";
@@ -21,7 +22,8 @@ import UserPermissionAccess from "./UserPermissionAccess";
 function App() {
   const cookie = new Cookies()
   const user = cookie.get("user")
-  // console.log(user);
+  const plant = cookie.get('plant')
+  console.log(user, plant);
   return (
     <>
       <Offline>
@@ -41,8 +43,9 @@ function App() {
           <Route path="/vendor_details/key" element={<VendorPortalVendor />} />
           {user ? <Route path="/acc" element={<VendorPortalAccounts />} /> : <Route path="/acc" element={<InValidAcessMessage />} />}
           {user ? <Route path="/acc/:id" element={<VendorPortalAccVendorDetails />} /> : <Route path="/acc/:id" element={<InValidAcessMessage />} />}
+          <Route path="/user/permission" element={<UserPermissionAccess />} />
+          <Route path="/user/permission/:email" element={<UserPermissionAccessDetails />} />
           <Route path="*" element={<ErrorMessage />} />
-          {user ? <Route path="/user/permission" element={<UserPermissionAccess />} /> : <Route path="/" element={<InValidAcessMessage />} />}
         </Routes>
       </Router>
       {/* </Online> */}

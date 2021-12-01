@@ -324,7 +324,6 @@ function VendorPortal_User() {
                           size={25}
                           style={stylesForReactIcons}
                           className="preview"
-                          type=""
                           onClick={(e) => {
                             e.preventDefault();
                             setImgShow(!imgShow);

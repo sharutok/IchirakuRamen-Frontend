@@ -1,0 +1,78 @@
+.grid-view {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.grid-view h4 {
+  -webkit-text-decoration: underline gray;
+          text-decoration: underline gray;
+  color: gray;
+  text-transform: capitalize;
+}
+
+.grid-view h4:hover {
+  -webkit-text-decoration: underline black;
+          text-decoration: underline black;
+  color: black;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.create-new-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 10rem;
+      grid-template-columns: 10rem;
+}
+
+.create_new {
+  cursor: pointer;
+}
+
+.create-new-block {
+  position: absolute;
+  width: 100%;
+  height: 80%;
+  background-color: rgba(255, 255, 255, 0.582);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+.create-new-block .create-new-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 10rem 10rem;
+      grid-template-columns: 10rem 10rem;
+  gap: 1rem;
+  margin: 3rem 0 0 3rem;
+}
+
+.create-new-block h1 {
+  margin-left: 3rem;
+  font-size: large;
+}
+
+.Button {
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+/*# sourceMappingURL=UserPermissionAccess.css.map */

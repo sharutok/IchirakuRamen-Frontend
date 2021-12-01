@@ -27,7 +27,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import LoadingSkeleton from "./LoadingSkeleton";
+const cookie = new Cookies()
 function VendorPortalAccounts() {
+  const user = cookie.get("user")
+  const plant = cookie.get("plant")
   let lastArrValue;
   let postsPerPage = 10;
   let pageArr = [];
@@ -75,14 +78,13 @@ function VendorPortalAccounts() {
     setOpen(false);
   };
 
-  const getAllURL = `http://localhost:8080/vendor/`;
+  const getAllURL = `http://localhost:8080/vendor/access/${plant}`;
   const getSmartSearchURL = `http://localhost:8080/vendor/smartSearch/${smartSearch}`;
   const sendMailToVendor = `http://localhost:8080/send_email`; //BACKEND
   const deleteURLVendor = `http://localhost:8080/vendor`;
   const deleteURLImg = `http://localhost:8080/file-upload/img`;
   const getData = async () => {
-    const plant = ["CD (CHD DEALERS)", "CE (CHD EQPT)", "CG (CHD PWRG)", "CH (CHD CONS)", "CJ (CHD PROJ)", "CW (CHD WAPS)", "PE (PMP EQPT)"]
-    const res = await fetch(getAllURL, plant)
+    const res = await fetch(getAllURL)
     const data = await res.json();
     setValue(data.allVendor.slice(0, 10));
     setPost(data.allVendor);
@@ -444,7 +446,8 @@ function Account_Page({
               disabled={true}
               type=""
               name=""
-              value={arr.supplier_name !== null ? arr.supplier_name.substring(0, 15) + "...." : "N/A"}
+
+              value={arr.supplier_name !== null ? arr.supplier_name.substring(0, 17) + "...." : "N/A"}
             />
           </Tooltip>
         )}
