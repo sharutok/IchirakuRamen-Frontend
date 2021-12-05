@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import { ImHome } from "react-icons/im"
 import { GoReport } from "react-icons/go"
+import { HiUserGroup } from "react-icons/hi"
 import { BiMailSend } from "react-icons/bi";
 import AccountMenu from "./AccountMenu";
 import "../CSS/VendorPortalAccounts.scss";
@@ -24,7 +25,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import LoadingSkeleton from "./LoadingSkeleton";
 const cookie = new Cookies()
@@ -37,19 +37,20 @@ function VendorPortalAccounts() {
   const [status, setStatus] = useState({
     pending: "", approved: "", new_record: ""
   })
+
   const [active, setActive] = useState({
+    vendorMaster: true,
     status: false,
     allVendor: false,
+  });
+  const [display, setDisplay] = useState({
     vendorMaster: true,
+    status: true,
+    allVendor: true,
   });
   const [popup, setPopUp] = useState({
     condition: false,
     content: "",
-  });
-  const [display, setDisplay] = useState({
-    status: true,
-    allVendor: true,
-    vendorMaster: true,
   });
   const [post, setPost] = useState([]);
   const [value, setValue] = useState([]);
@@ -83,12 +84,26 @@ function VendorPortalAccounts() {
   const sendMailToVendor = `http://localhost:8080/send_email`; //BACKEND
   const deleteURLVendor = `http://localhost:8080/vendor`;
   const deleteURLImg = `http://localhost:8080/file-upload/img`;
+  const msmeVendorDetails = `http://localhost:8080/msms_vendor`
+
+
   const getData = async () => {
     const res = await fetch(getAllURL)
     const data = await res.json();
     setValue(data.allVendor.slice(0, 10));
     setPost(data.allVendor);
+    console.log(post);
   };
+
+  const getMSMEVendorData = async () => {
+    const res = await fetch(msmeVendorDetails)
+    const data = await res.json();
+    console.log(data.msme_vendors);
+    setValue(data.msme_vendors.slice(0, 10));
+    setPost(data.msme_vendors);
+
+  }
+
 
   useEffect(() => {
     getData();
@@ -223,24 +238,22 @@ function VendorPortalAccounts() {
             <Stack style={{ backgroundColor: " rgb(170, 170, 170)" }}>
               <AccountMenu />
             </Stack>
-
             <h3
               onClick={() => {
+                getData()
                 setDisplay({
+                  vendorMaster: true,
                   status: true,
                   allVendor: true,
-                  vendorMaster: true,
-                  allVendor: true,
+
                 });
                 setActive({
+                  vendorMaster: true,
                   status: false,
                   allVendor: false,
-                  vendorMaster: true,
                 });
               }}
-
             >
-              {/* Vendor Master */}
               <Tooltip title="Vendor Master" placement="right" disableInteractive>
                 <IconButton style={{
                   color: active.vendorMaster && "#e7eaf6",
@@ -250,7 +263,30 @@ function VendorPortalAccounts() {
                   <ImHome />
                 </IconButton>
               </Tooltip>
-
+            </h3>
+            <h3
+              onClick={() => {
+                getMSMEVendorData()
+                // setDisplay({
+                //   allVendor: true,
+                //   vendorMaster: true,
+                //   status: false,
+                // });
+                setActive({
+                  allVendor: true,
+                  vendorMaster: false,
+                  status: false,
+                });
+              }}>
+              <Tooltip title="MSME Vendors" placement="right" disableInteractive  >
+                <IconButton style={{
+                  color: active.allVendor && "#e7eaf6",
+                  backgroundColor: active.allVendor && "#113f67",
+                  borderRadius: active.allVendor && "5px"
+                }}>
+                  <HiUserGroup />
+                </IconButton>
+              </Tooltip>
             </h3>
             <h3
               onClick={() => {
@@ -275,6 +311,8 @@ function VendorPortalAccounts() {
                 </IconButton>
               </Tooltip>
             </h3>
+
+
           </div>
 
           {loading ? <form className="right-view">
@@ -366,7 +404,7 @@ function VendorPortalAccounts() {
           {!display.status && <>
             <div className="badge-container" >
               <div className="badge">
-                <Badge badgeContent={status.pending} color="primary" className="badge-icons">
+                <Badge max={9999} badgeContent={status.pending} color="primary" className="badge-icons">
                   <PendingActionsIcon fontSize="medium" sx={{ color: "red" }} />
                 </Badge>
                 <label for="">Pending</label>
@@ -384,7 +422,7 @@ function VendorPortalAccounts() {
                 <label for="">New Record</label>
               </div>
               <div className="badge">
-                <Badge badgeContent={(post.length)} color="primary" className="badge-icons">
+                <Badge max={9999} badgeContent={(post.length)} color="primary" className="badge-icons">
                   <FormatListBulletedIcon fontSize="medium" sx={{ color: "black" }} />
                 </Badge>
                 <label for="">Total Records</label>
@@ -480,7 +518,7 @@ function Account_Page({
               </Tooltip>
             </div>
             <Tooltip arrow placement="top" title="Info" disableInteractive>
-              <Link className="know-more" to={`/acc/${arr.supplier_number}`}>
+              <Link className="know-more" to={`/acc/${arr.supplier_number}/${arr.organization}`}>
                 <AiOutlineInfoCircle />
               </Link>
             </Tooltip>

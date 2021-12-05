@@ -14,7 +14,6 @@ import "../CSS/VendorPortalVendor.css";
 const stylesForReactIcons = {
   margin: "0 0.5rem",
   color: "grey",
-  backgroundColor: "yellow",
   padding: "0.2rem",
   backgroundColor: "white",
   borderRadius: "5px",
@@ -153,6 +152,7 @@ function VendorPortal_User() {
 
   const handleUpdateClick = async (e) => {
     e.preventDefault();
+    console.log('handleUpdateClick')
     if (vInfo.supplier_number === "") {
       setMess({
         state: true,
@@ -163,7 +163,7 @@ function VendorPortal_User() {
       }, 2000);
     } else {
       try {
-        await axios.patch(patchURL, vInfo);
+        // await axios.patch(patchURL, vInfo);
         setHide({ disabled: false });
       } catch (error) {
         setMess({
@@ -179,6 +179,7 @@ function VendorPortal_User() {
 
   const updateAndSaveData = async (e) => {
     e.preventDefault();
+    console.log('updateAndSaveData')
     try {
       await axios.patch(patchURL, vInfo);
       const formData = new FormData();
@@ -598,7 +599,6 @@ function VendorPortal_User() {
               </button>
             ) : (
               <button
-                type=""
                 onClick={updateAndSaveData}
                 className="vendor_form_updates"
               >

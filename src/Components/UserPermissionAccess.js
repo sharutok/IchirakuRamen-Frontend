@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
-import { Line } from 'react-chartjs-2'
-// import DoneIcon from '@mui/icons-material/Done';
-// import CloseIcon from '@mui/icons-material/Close';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import UpdateIcon from '@mui/icons-material/Update';
+import DataSetGraph from './DataSetGraph';
 import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -74,59 +70,61 @@ function UserPermissionAccess() {
 
     return (
         <div>
-            {hide && <div className="create-new-block">
-                <Snackbar
-                    open={snack.state}
-                    autoHideDuration={1000}
-                    message={snack.content}
-                // action={action}
-                />
-                <h1>Create New User</h1>
-                <div className="create-new-container" >
-                    <TextField size="small" autoComplete="off" className="filled-basic" label="Email ID" name="email" variant="outlined" onChange={handleChange} />
-                    <TextField size="small" autoComplete="off" className="filled-basic" label="Username" name="username" variant="outlined" onChange={handleChange} />
-                    <TextField size="small" autoComplete="off" className="filled-basic" type="password" label="Password" name="password" error={mess.state} helperText={mess.content} variant="outlined" onChange={handleChange} />
-                    <TextField size="small" autoComplete="off" className="filled-basic" type="password" label="Verify Passsword" name="verify_password" error={mess.state} variant="outlined" onChange={handleChange} />
-                    <FormControl size="small" autoComplete="off" sx={{ minWidth: 120, }}>
-                        <InputLabel id="demo-simple-select-label">Plant</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={values.plant}
-                            label="Plant"
-                            name="plant"
-                            onChange={handleChange}>
-                            <MenuItem onChange={handleChange} value={"CHI"}>CHINCHWAD</MenuItem>
-                            <MenuItem onChange={handleChange} value={"SIL"}>SILVASA</MenuItem>
-                            <MenuItem onChange={handleChange} value={"RPR"}>RAIPUR</MenuItem>
-                            <MenuItem onChange={handleChange} value={"HO"}>HEAD OFFICE</MenuItem>
-                            <MenuItem onChange={handleChange} value={"CHN"}>CHENNAI</MenuItem>
-                            {role === "ADMIN" && <MenuItem onChange={handleChange} value={"ALL"}>ALL</MenuItem>}
-                        </Select>
-                    </FormControl>
-                    <FormControl size="small" sx={{ minWidth: 120 }}  >
-                        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={values.role}
-                            label="Role"
-                            name="role"
-                            onChange={handleChange}>
-                            <MenuItem onChange={handleChange} value={"USER"}>User</MenuItem>
-                            <MenuItem onChange={handleChange} value={"PLANT_HEAD"}>Plant Head</MenuItem>
-                            {role === "ADMIN" && <MenuItem onChange={handleChange} value={"ADMIN"}>Admin</MenuItem>}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="Button">
-                    <button className="vendor_form_send_link" onClick={handelClick} type="">Success</button>
-                    <button className="vendor_form_del" onClick={() => setHide(!hide)} type="">Close</button>
-                </div>
-            </div>}
+            {hide &&
+                <div className="create-new-block">
+                    <Snackbar
+                        open={snack.state}
+                        autoHideDuration={1000}
+                        message={snack.content}
+                    // action={action}
+                    />
+                    <h1>Create New User</h1>
+                    <div className="create-new-container" >
+                        <TextField size="small" autoComplete="off" className="filled-basic" label="Email ID" name="email" variant="outlined" onChange={handleChange} />
+                        <TextField size="small" autoComplete="off" className="filled-basic" label="Username" name="username" variant="outlined" onChange={handleChange} />
+                        <TextField size="small" autoComplete="off" className="filled-basic" type="password" label="Password" name="password" error={mess.state} helperText={mess.content} variant="outlined" onChange={handleChange} />
+                        <TextField size="small" autoComplete="off" className="filled-basic" type="password" label="Verify Passsword" name="verify_password" error={mess.state} variant="outlined" onChange={handleChange} />
+                        <FormControl size="small" autoComplete="off" sx={{ minWidth: 120, }}>
+                            <InputLabel id="demo-simple-select-label">Plant</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={values.plant}
+                                label="Plant"
+                                name="plant"
+                                onChange={handleChange}>
+                                <MenuItem onChange={handleChange} value={"CHI"}>CHINCHWAD</MenuItem>
+                                <MenuItem onChange={handleChange} value={"SIL"}>SILVASA</MenuItem>
+                                <MenuItem onChange={handleChange} value={"RPR"}>RAIPUR</MenuItem>
+                                <MenuItem onChange={handleChange} value={"HO"}>HEAD OFFICE</MenuItem>
+                                <MenuItem onChange={handleChange} value={"CHN"}>CHENNAI</MenuItem>
+                                {role === "ADMIN" && <MenuItem onChange={handleChange} value={"ALL"}>ALL</MenuItem>}
+                            </Select>
+                        </FormControl>
+                        <FormControl size="small" sx={{ minWidth: 120 }}  >
+                            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={values.role}
+                                label="Role"
+                                name="role"
+                                onChange={handleChange}>
+                                <MenuItem onChange={handleChange} value={"USER"}>User</MenuItem>
+                                <MenuItem onChange={handleChange} value={"PLANT_HEAD"}>Plant Head</MenuItem>
+                                {role === "ADMIN" && <MenuItem onChange={handleChange} value={"ADMIN"}>Admin</MenuItem>}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="Button">
+                        <button className="vendor_form_send_link" onClick={handelClick} type="">Success</button>
+                        <button className="vendor_form_del" onClick={() => setHide(!hide)} type="">Close</button>
+                    </div>
+                </div>}
+            <DataSetGraph />
             <div className="grid-view">
                 <table>
-                    <h4 className="create_new" onClick={() => setHide(!hide)}>create new</h4>
+                    <h4 className="create_new" onClick={() => setHide(!hide)}>create new user</h4>
                     <tr>
                         <th>Email</th>
                         <th>Username</th>

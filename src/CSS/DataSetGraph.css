@@ -1,0 +1,29 @@
+.bar {
+  border-radius: 1rem;
+  -webkit-box-shadow: 10px 10px 20px grey;
+          box-shadow: 10px 10px 20px grey;
+  width: 30rem;
+  height: 20rem;
+  padding: 1rem;
+}
+
+.pie {
+  border-radius: 1rem;
+  padding: 1rem;
+  -webkit-box-shadow: 10px 10px 20px grey;
+          box-shadow: 10px 10px 20px grey;
+  width: 30rem;
+  height: 20rem;
+}
+
+.charts {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  gap: 3rem;
+}
+/*# sourceMappingURL=DataSetGraph.css.map */

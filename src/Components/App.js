@@ -42,7 +42,7 @@ function App() {
           <Route path="/account/password/reset" element={<ResetPassword />} />
           <Route path="/vendor_details/key" element={<VendorPortalVendor />} />
           {user ? <Route path="/acc" element={<VendorPortalAccounts />} /> : <Route path="/acc" element={<InValidAcessMessage />} />}
-          {user ? <Route path="/acc/:id" element={<VendorPortalAccVendorDetails />} /> : <Route path="/acc/:id" element={<InValidAcessMessage />} />}
+          {user ? <Route path="/acc/:id/:org" element={<VendorPortalAccVendorDetails />} /> : <Route path="/acc/:id" element={<InValidAcessMessage />} />}
           <Route path="/user/permission" element={<UserPermissionAccess />} />
           <Route path="/user/permission/:email" element={<UserPermissionAccessDetails />} />
           <Route path="*" element={<ErrorMessage />} />

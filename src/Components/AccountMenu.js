@@ -75,7 +75,7 @@ export default function PositionedMenu() {
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem>
                     {["PLANT HEAD", "ADMIN"].includes(role) && <Link style={{ textDecoration: "none" }} to={`/user/permission`}>
-                        User Permission
+                        User Management
                     </Link>}
                 </MenuItem>
                 <MenuItem onClick={e => {

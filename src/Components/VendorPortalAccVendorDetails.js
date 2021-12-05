@@ -18,8 +18,7 @@ const stylesForReactIcons = {
   boxShadow: "2px 2px 10px lightgrey"
 }
 function VendorPortalAccVendorDetails() {
-  const { id } = useParams();
-
+  const { id, org } = useParams();
   const [img, setImg] = useState("");
   const [arr, setArr] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -52,7 +51,7 @@ function VendorPortalAccVendorDetails() {
     content: "",
   });
 
-  const getURL = `http://localhost:8080/vendor/${id}`;
+  const getURL = `http://localhost:8080/vendor/detail/${id}/${org}`;
   const deleteURL = `http://localhost:8080/vendor/${id}`;
   const patchURL = `http://localhost:8080/vendor/${id}`;
   const getImageURL = `http://localhost:8080/file-upload/img/${id}`;
@@ -120,60 +119,9 @@ function VendorPortalAccVendorDetails() {
     getImgData();
   }, []);
 
-
-  // const deleteData = async () => {
-  //   try {
-  //     await axios.delete(deleteURL);
-  //     setMess({
-  //       content: `${vInfo.supplier_number} deleted`,
-  //     });
-  //     setTimeout(() => {
-  //       setMess({ content: "" });
-  //     }, 2000);
-  //     setVInfo({
-  //       supplier_number: "",
-  //       organization: "",
-  //       supplier_name: "",
-  //       type: "",
-  //       created_date: "",
-  //       inactive_date: "",
-  //       classification: "",
-  //       certificate_no: "",
-  //       certificate_agency: "",
-  //       certificate_expiration_date: "",
-  //       certificate_registration_date: "",
-  //       upload_certificate: "",
-  //       status: "",
-
-  //     });
-  //   } catch (error) {
-  //     setMess({
-  //       state: true,
-  //       content: `There is no Supplier number of ${vInfo.supplier_number} exist`,
-  //     });
-  //     setTimeout(() => {
-  //       setMess({ state: false, content: "" });
-  //     }, 2000);
-  //   }
-  // };
-
-  // const handleDeleteClick = (e) => {
-  //   e.preventDefault();
-  //   if (vInfo.supplier_number === "") {
-  //     setMess({
-  //       state: true,
-  //       content: "There is no Supplier number mentioned !",
-  //     });
-  //     setTimeout(() => {
-  //       setMess({ state: false, content: "" });
-  //     }, 2000);
-  //   } else {
-  //     deleteData();
-  //   }
-  // };
-
   const handleUpdateClick = async (e) => {
     e.preventDefault();
+    console.log('handleUpdateClick')
     if (vInfo.supplier_number === "") {
       setMess({
         state: true,
@@ -183,23 +131,12 @@ function VendorPortalAccVendorDetails() {
         setMess({ state: false, content: "" });
       }, 2000);
     } else {
-      try {
-        await axios.patch(patchURL, vInfo);
-        setHide({ disabled: false });
-      } catch (error) {
-        setMess({
-          state: true,
-          content: `There is no Supplier number of ${vInfo.supplier_number} exist`,
-        });
-        setTimeout(() => {
-          setMess({ state: false, content: "" });
-        }, 2000);
-      }
+      setHide({ disabled: false });
     }
   };
-
   const updateAndSaveData = async (e) => {
     e.preventDefault();
+    console.log('updateAndSaveData')
     try {
       await axios.patch(patchURL, vInfo);
     } catch (error) { }
@@ -340,7 +277,7 @@ function VendorPortalAccVendorDetails() {
               name="certificate_expiration_date"
               disabled={hide.disabled}
               value={
-                vInfo.certificate_expiration_date
+                vInfo.certificate_expiration_date.slice(0, 10)
                 // === (null || "")
                 // ? "N/A"
                 // : vInfo.certificate_expiration_date
