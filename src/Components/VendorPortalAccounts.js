@@ -27,6 +27,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import LoadingSkeleton from "./LoadingSkeleton";
+import DatasetGraph2 from "./DatasetGraph2";
 const cookie = new Cookies()
 function VendorPortalAccounts() {
   const user = cookie.get("user")
@@ -92,7 +93,7 @@ function VendorPortalAccounts() {
     const data = await res.json();
     setValue(data.allVendor.slice(0, 10));
     setPost(data.allVendor);
-    console.log(post);
+    // console.log(post);
   };
 
   const getMSMEVendorData = async () => {
@@ -204,7 +205,6 @@ function VendorPortalAccounts() {
     <>
       <div>
         <div>
-
           <Dialog
             open={open}
             onClose={handleClose}
@@ -234,10 +234,11 @@ function VendorPortalAccounts() {
         </div>
         <div className="bifercation">
           <div className="control-panel">
-            {/* <Tooltip title="Logout" placement="right"> */}
-            <Stack style={{ backgroundColor: " rgb(170, 170, 170)" }}>
+            {/* <Tooltip title="Logout" disableInteractive placement="right"> */}
+            <div style={{ backgroundColor: " rgb(170, 170, 170)" }}>
               <AccountMenu />
-            </Stack>
+            </div>
+            {/* </Tooltip> */}
             <h3
               onClick={() => {
                 getData()
@@ -267,11 +268,11 @@ function VendorPortalAccounts() {
             <h3
               onClick={() => {
                 getMSMEVendorData()
-                // setDisplay({
-                //   allVendor: true,
-                //   vendorMaster: true,
-                //   status: false,
-                // });
+                setDisplay({
+                  allVendor: true,
+                  vendorMaster: true,
+                  status: true,
+                });
                 setActive({
                   allVendor: true,
                   vendorMaster: false,
@@ -317,11 +318,11 @@ function VendorPortalAccounts() {
 
           {loading ? <form className="right-view">
             <div className="acc_page_label">
-              {<label>Vendor Number</label>}
-              {<label>Plant</label>}
+              {display.status && <label>Vendor Number</label>}
+              {display.status && <label>Plant</label>}
               {display.status && <label>Vendor Name</label>}
               {display.status && <label>MSME Number</label>}
-              {display.allVendor && <label>Status</label>}
+              {display.status && <label>Status</label>}
               {display.status && <label>Operations</label>}
             </div>
             <div>
@@ -366,11 +367,10 @@ function VendorPortalAccounts() {
                   }
                 })}
             </div>
-            <div className="page">
+            {display.status && <div className="page">
               <label >Page:<span style={{ color: "grey" }}>{page}</span></label>
-            </div>
-
-            <div className="pagination">
+            </div>}
+            {display.status && <div className="pagination">
               {pageArr.map((no) => {
                 return (
                   <>
@@ -399,38 +399,46 @@ function VendorPortalAccounts() {
                   ....{lastArrValue}
                 </button>
               )}
-            </div>
+            </div>}
+
           </form> : < LoadingSkeleton />}
+
           {!display.status && <>
-            <div className="badge-container" >
-              <div className="badge">
-                <Badge max={9999} badgeContent={status.pending} color="primary" className="badge-icons">
-                  <PendingActionsIcon fontSize="medium" sx={{ color: "red" }} />
-                </Badge>
-                <label for="">Pending</label>
-              </div>
-              <div className="badge">
-                <Badge badgeContent={status.approved} color="primary" className="badge-icons">
-                  <DoneAllIcon fontSize="medium" color="success" />
-                </Badge>
-                <label for="">Approved</label>
-              </div>
-              <div className="badge">
-                <Badge badgeContent={status.new_record} color="primary" className="badge-icons">
-                  <AddIcon fontSize="medium" sx={{ color: "lightblue" }} />
-                </Badge>
-                <label for="">New Record</label>
-              </div>
-              <div className="badge">
-                <Badge max={9999} badgeContent={(post.length)} color="primary" className="badge-icons">
-                  <FormatListBulletedIcon fontSize="medium" sx={{ color: "black" }} />
-                </Badge>
-                <label for="">Total Records</label>
+            <div className="status-module">
+              {!display.status && <div className="DatasetGraph2">
+                <DatasetGraph2 status={status} plant={plant} post={post} />
+              </div>}
+              <div className="badge-container" >
+                <div className="badge">
+                  <Badge max={9999} badgeContent={status.pending} color="primary" className="badge-icons">
+                    <PendingActionsIcon fontSize="medium" sx={{ color: "red" }} />
+                  </Badge>
+                  <label for="">Pending</label>
+                </div>
+                <div className="badge">
+                  <Badge badgeContent={status.approved} color="primary" className="badge-icons">
+                    <DoneAllIcon fontSize="medium" color="success" />
+                  </Badge>
+                  <label for="">Approved</label>
+                </div>
+                <div className="badge">
+                  <Badge badgeContent={status.new_record} color="primary" className="badge-icons">
+                    <AddIcon fontSize="medium" sx={{ color: "lightblue" }} />
+                  </Badge>
+                  <label for="">New Record</label>
+                </div>
+                <div className="badge">
+                  <Badge max={9999} badgeContent={(post.length)} color="primary" className="badge-icons">
+                    <FormatListBulletedIcon fontSize="medium" sx={{ color: "black" }} />
+                  </Badge>
+                  <label for="">Total Records</label>
+                </div>
               </div>
             </div>
           </>}
         </div>
       </div>
+
     </>
   );
 }
@@ -441,13 +449,15 @@ function Account_Page({
   handleClickOpen,
   popup,
   sendData,
+  input,
   setSendData,
 }) {
 
   let portal_link = `http://localhost:3000/vendor_details`; //FRONTEND
   function handleSendMail(vendor_email, supplier_number) {
-    let key = bcrypt.hashSync(supplier_number, 10)
-    portal_link = `${portal_link}/key?v=${key}`
+    let key1 = bcrypt.hashSync(supplier_number, 10)
+    let key2 = encodeURI(arr.organization)
+    portal_link = `${portal_link}/key?v=${key1}&p=${key2}`
     setPopUp({
       condition: true,
       content: `Sure you want to send mail to !!! `,
@@ -469,22 +479,19 @@ function Account_Page({
   return (
     <>
       <div className="acc_page">
-
-        <input disabled="true" type="" name="" value={arr.supplier_number} />
-        <input
+        {display.status && <input disabled="true" type="" name="" value={arr.supplier_number} />}
+        {display.status && <input
           disabled={true}
           type=""
           name=""
           value={arr.organization !== null ? arr.organization : "N/A"}
-        />
-
+        />}
         {display.status && (
           <Tooltip placement="top" title={arr.supplier_name} disableInteractive>
             <input
               disabled={true}
               type=""
               name=""
-
               value={arr.supplier_name !== null ? arr.supplier_name.substring(0, 17) + "...." : "N/A"}
             />
           </Tooltip>
@@ -497,7 +504,7 @@ function Account_Page({
             value={arr.certificate_no !== "" ? arr.certificate_no : "N/A"}
           />
         )}
-        {display.allVendor && (
+        {display.status && (
           <input disabled={true} type="" name="" style={{ color: arr.status === "0" ? "red" : "green" }}
             value={arr.status === "0" ? "Pending" : "Approved"} />
         )}

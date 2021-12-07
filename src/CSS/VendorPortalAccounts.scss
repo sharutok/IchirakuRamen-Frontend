@@ -369,7 +369,7 @@ $font-weight: bolder;
 }
 
 .badge-container {
-  background-color: rgb(248, 238, 238);
+  background-color: rgb(238, 238, 238);
   display: grid;
   grid-template-columns: auto;
   grid-gap: 0;
@@ -378,7 +378,8 @@ $font-weight: bolder;
   border-radius: 5px;
   width: fit-content;
   box-shadow: 5px 5px 10px #cfcfcf;
-  margin: 1rem;
+  margin-top: 4rem;
+  margin: 3rem;
   .badge {
     box-shadow: 5px 5px 10px #cfcfcf;
     padding: 0 0.5rem;
@@ -569,4 +570,17 @@ input[type="radio"] {
   button:hover {
     background-color: rgb(221, 31, 31);
   }
+}
+.DatasetGraph2 {
+  margin-left: 2rem;
+  background-color: rgb(241, 241, 241);
+  padding: 1rem 2rem;
+  box-shadow: 5px 5px 10px rgb(206, 206, 206);
+  border-radius: 10px;
+  width: 25rem;
+  margin-left: 2rem;
+}
+.status-module {
+  display: flex;
+  justify-content: center;
 }

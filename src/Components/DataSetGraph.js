@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../CSS/DataSetGraph.scss'
 import { Bar, Pie, Doughnut } from 'react-chartjs-2'
 import { CategoryScale } from 'chart.js'
-import axios from 'axios'
-import Chart from 'chart.js/auto'
+
 const dataUrl = `http://localhost:8080/graph/data/count`
 function DataSetGraph() {
     const [noOfVenInPlant, setnoOfVenInPlant] = useState([])
@@ -57,15 +56,9 @@ function DataSetGraph() {
                         , datasets: [{
                             label: 'Approved',
                             data: arr2.slice(0, 5),
-                            // data: [100, 40, 50, 20],
                             backgroundColor: [
-                                '#ADF7B6',
-                                // 'rgba(85, 99, 255,0.7)'
-                                // 'rgba(54, 162, 235, 0.7)',
-                                // 'rgba(255, 206, 86, 0.7)',
-                                // 'rgba(75, 192, 192, 0.7)',
-                                // 'rgba(153, 102, 255, 0.7)',
-                                // 'rgba(255, 159, 64, 0.7)'
+                                '#a2a7a5',
+
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
@@ -80,12 +73,7 @@ function DataSetGraph() {
                             label: "Pending",
                             data: arr2.slice(5, 10),
                             backgroundColor: [
-                                '#f02d3a',
-                                // 'rgba(255, 84, 98, 0.7)',
-                                // 'rgba(255, 206, 86, 0.7)',
-                                // 'rgba(75, 192, 192, 0.7)',
-                                // 'rgba(153, 102, 255, 0.7)',
-                                // 'rgba(255, 159, 64, 0.7)'
+                                '#165e74',
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 0.1)',
@@ -167,3 +155,4 @@ function DataSetGraph() {
 }
 
 export default DataSetGraph
+

@@ -21,9 +21,9 @@ const stylesForReactIcons = {
 }
 function VendorPortal_User() {
   const { search } = useLocation()
-  // console.log(search);
-  const { v } = queryString.parse(search)
+  const { v, p } = queryString.parse(search)
   let key = v
+  let key2 = decodeURI(p)
   const [arrImg, setArrImg] = useState([])
   const [img, setImg] = useState("");
   const [imgShow, setImgShow] = useState(false);
@@ -56,13 +56,11 @@ function VendorPortal_User() {
     content: "",
   });
 
-  const getURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
+  const getURL = `http://localhost:8080/vendor/detail/${vInfo.supplier_number}/${key2}`;
   const deleteURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
   const patchURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
   const uploadImag = `http://localhost:8080/file-upload/img/${vInfo.supplier_number}`;
   const getImg = `http://localhost:8080/file-upload/img/${vInfo.supplier_number}`
-
-
 
   const getData = async () => {
     const respond = await fetch(getURL);
@@ -123,7 +121,7 @@ function VendorPortal_User() {
   const handleSearchClick = (e) => {
     e.preventDefault();
     let checkSupplierNumber = bcrypt.compareSync(vInfo.supplier_number, key)
-    console.log(vInfo.supplier_number, key, checkSupplierNumber);
+    // console.log(vInfo.supplier_number, key, checkSupplierNumber);
 
     if (vInfo.supplier_number === "") {
       setMess({
