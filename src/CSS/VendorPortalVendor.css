@@ -6,23 +6,27 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0;
-  margin: 0;
   margin-left: 1rem;
 }
 
 .headings h1 {
+  margin-left: 3rem;
   font-weight: 450;
-  margin: -1rem 0 1rem 0;
+  margin-top: 5rem;
 }
 
 .headings .heading-status {
   margin-right: 12.5rem;
   margin-top: -0.5rem;
+  margin-top: 5rem;
 }
 
 .heading-status {
   font-size: larger;
-  margin-top: 5rem;
+}
+
+.vendor_forms {
+  margin-top: 1rem;
 }
 
 .containerz {

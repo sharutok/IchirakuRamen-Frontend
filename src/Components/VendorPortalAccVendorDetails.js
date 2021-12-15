@@ -22,7 +22,7 @@ function VendorPortalAccVendorDetails() {
   const [img, setImg] = useState("");
   const [arr, setArr] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [dataget, setDataGet] = useState("");
+  // const [dataget, setDataGet] = useState("");
   const [vInfo, setVInfo] = useState({
     supplier_number: "",
     organization: "",
@@ -65,7 +65,7 @@ function VendorPortalAccVendorDetails() {
   const getData = async () => {
     const respond = await fetch(getURL);
     const data = await respond.json();
-    setDataGet(data.result);
+    // setDataGet(data.result);
     if (data.status === 200) {
       data.result.map((x) => {
         setVInfo({
@@ -254,7 +254,7 @@ function VendorPortalAccVendorDetails() {
               // placeholder="Created Date"
               name="created_date"
               disabled={hide.disabled}
-              value={vInfo.created_date.slice(0, 10)}
+              value={vInfo.created_date}
               onChange={handleChange}
               onFocus={(e) => {
                 e.target.type = "date";
@@ -277,7 +277,7 @@ function VendorPortalAccVendorDetails() {
               name="certificate_expiration_date"
               disabled={hide.disabled}
               value={
-                vInfo.certificate_expiration_date.slice(0, 10)
+                vInfo.certificate_expiration_date
                 // === (null || "")
                 // ? "N/A"
                 // : vInfo.certificate_expiration_date

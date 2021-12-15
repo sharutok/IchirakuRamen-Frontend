@@ -18,7 +18,11 @@ import Cookies from 'universal-cookie'
 import "../CSS/App.scss";
 import InValidAcessMessage from "./InValidAccessMessage";
 import UserPermissionAccess from "./UserPermissionAccess";
-function AppRouter() {
+function AppRouter(user) {
+    console.log("in AppRouter");
+    // const cookie = new Cookies()
+    // const user = cookie.get("user")
+    // const plant = cookie.get('plant')
     return (
         <div>
             <>
@@ -33,9 +37,9 @@ function AppRouter() {
                         </div>
                     </Link>
                     <Routes>
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/account/password/reset" element={<ResetPassword />} />
-                        <Route path="/vendor_details/key" element={<VendorPortalVendor />} />
+                        {/* <Route path="/login" element={<LoginPage />} />
+                        <Route path="/account/password/reset" element={<ResetPassword />} /> */}
+                        {/* <Route path="/vendor_details/key" element={<VendorPortalVendor />} /> */}
                         {user ? <Route path="/acc" element={<VendorPortalAccounts />} /> : <Route path="/acc" element={<InValidAcessMessage />} />}
                         {user ? <Route path="/acc/:id/:org" element={<VendorPortalAccVendorDetails />} /> : <Route path="/acc/:id" element={<InValidAcessMessage />} />}
                         <Route path="/user/permission" element={<UserPermissionAccess />} />

@@ -6,6 +6,8 @@ body {
 }
 
 .smart-search {
+  position: fixed;
+  margin-top: 6.5rem;
   margin-left: 5rem;
   margin-bottom: 2rem;
 }
@@ -52,7 +54,7 @@ body {
   text-align: center;
   padding: 1px;
   border-radius: 0;
-  width: 12rem;
+  width: 12.9rem;
   font-size: medium;
 }
 
@@ -140,7 +142,7 @@ body {
 .acc_page_label label {
   background: #aaaaaa;
   padding: 0.1rem;
-  width: 12rem;
+  width: 12.9rem;
   border-radius: 0;
 }
 
@@ -153,10 +155,10 @@ body {
 }
 
 .control-panel {
-  margin-top: -5rem;
+  position: fixed;
+  margin-top: 5rem;
   border-top-right-radius: 5px;
   background: #aaaaaa;
-  position: absolute;
   height: 100%;
 }
 
@@ -202,6 +204,7 @@ body {
 
 .right-view {
   margin-left: 5rem;
+  margin-top: 9rem;
 }
 
 .acc-vendor-page {
@@ -275,55 +278,13 @@ body {
 }
 
 .pagination {
-  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  top: 87%;
-  width: 100%;
-  margin: 3rem 0 1rem 0;
-}
-
-.pagination button {
-  margin-top: 1rem;
-  margin-left: 1rem;
-  font-weight: bold;
-  font-size: 16px;
-  text-align: center;
-  color: var(--blue);
-  background-color: #fff;
-  border: 1px solid var(--blue);
-  cursor: pointer;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-.pagination button:hover {
-  color: #575757;
-  background-color: #dfd9d9;
-  border-color: var(--lgt-blue);
-}
-
-.pagination button:active {
-  color: #575757;
-  background-color: var(--drk-blue);
-  border-color: var(--drk-blue);
-}
-
-.pagination button:focus {
-  outline: none;
-  -webkit-box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
-          box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
-}
-
-.page {
-  margin-top: 1rem;
-  position: absolute;
-  top: 94%;
-  font-weight: bold;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin: 1rem 2rem 1rem 0;
 }
 
 .popover {
@@ -398,7 +359,7 @@ body {
 }
 
 .badge-container {
-  background-color: #f8eeee;
+  background-color: #eeeeee;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto;
@@ -412,7 +373,8 @@ body {
   width: fit-content;
   -webkit-box-shadow: 5px 5px 10px #cfcfcf;
           box-shadow: 5px 5px 10px #cfcfcf;
-  margin: 1rem;
+  margin-top: 4rem;
+  margin: 3rem;
 }
 
 .badge-container .badge {
@@ -622,5 +584,16 @@ input[type="radio"] {
 
 .img-thumbnails button:hover {
   background-color: #dd1f1f;
+}
+
+.graphs {
+  margin-left: 7.5rem;
+  margin-top: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=VendorPortalAccounts.css.map */

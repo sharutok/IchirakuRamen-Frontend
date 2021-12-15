@@ -1,16 +1,13 @@
 .top-heading {
+  position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: auto;
+  width: 100%;
   height: 5rem;
-  background: black;
-  background: black;
-  background: black;
-  background: black;
   background: white 99%;
   margin-bottom: 1.5rem;
 }

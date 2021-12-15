@@ -2,26 +2,32 @@
   display: flex;
   justify-content: space-between;
   padding: 0;
-  margin: 0;
+  // margin-top: 5rem;
   margin-left: 1rem;
-
+  // background-color: aqua;
   h1 {
+    // background-color: khaki;
+    // margin: -1rem 0 1rem 0;
+    margin-left: 3rem;
     font-weight: 450;
-    margin: -1rem 0 1rem 0;
+    margin-top: 5rem;
   }
   .heading-status {
+    // background-color: darkcyan;
     margin-right: 12.5rem;
     margin-top: -0.5rem;
+    margin-top: 5rem;
   }
 }
 
 .heading-status {
-  //background-color: violet;
+  // background-color: violet;
   font-size: larger;
-  margin-top: 5rem;
+  // margin-top: 5rem;
 }
 
 .vendor_forms {
+  margin-top: 1rem;
   //background-color: limegreen;
 }
 .containerz {

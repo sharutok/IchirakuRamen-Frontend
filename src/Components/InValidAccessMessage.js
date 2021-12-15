@@ -1,5 +1,6 @@
 import React from 'react'
 import LoadingButton from '@mui/lab/LoadingButton';
+import '../CSS/InValidAcessMessage.scss'
 function InValidAcessMessage() {
     const [loading, setLoading] = React.useState(false);
     function handleClick() {
@@ -9,14 +10,14 @@ function InValidAcessMessage() {
         }, 1500)
     }
     return (
-        <div style={{ textAlign: "center" }}>
-            <h1 >Access Denied!!!Please Login</h1>
+        <div className='access-denied' >
+            <h1
+            >Access Denied!!!Please Login</h1>
             <LoadingButton
+                className='loading-button'
                 onClick={handleClick}
                 loading={loading}
-                variant="outlined"
-
-            >
+                variant="outlined">
                 Login page link
             </LoadingButton>
         </div>

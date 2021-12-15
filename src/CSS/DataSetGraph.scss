@@ -1,21 +1,30 @@
+$wid: 33rem;
+$hit: 14.7rem;
+$radius: 10px;
 .bar {
-  border-radius: 1rem;
-  box-shadow: 10px 10px 20px grey;
+  border-radius: $radius;
+  box-shadow: 5px 5px 15px grey;
   // background-color: firebrick;
-  width: 30rem;
-  height: 20rem;
+  width: $wid;
+  height: $hit;
+  margin-bottom: 0.7rem;
   padding: 1rem;
 }
 .pie {
-  border-radius: 1rem;
+  border-radius: $radius;
   padding: 1rem;
-  box-shadow: 10px 10px 20px grey;
-  width: 30rem;
-  height: 20rem;
+  box-shadow: 5px 5px 15px grey;
+  width: $wid;
+  height: $hit;
+  margin-bottom: 0.7rem;
 }
 .charts {
-  justify-content: center;
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 3rem;
+  margin-left: 1rem;
+  // display: flex;
+  // justify-content: flex-end;
+  // margin-bottom: 2rem;
+  // grid-template-columns: auto auto;
+  // display: flex;
+  // gap: 3rem;
+  // background-color: saddlebrown;
 }

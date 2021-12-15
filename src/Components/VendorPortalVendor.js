@@ -57,7 +57,7 @@ function VendorPortal_User() {
   });
 
   const getURL = `http://localhost:8080/vendor/detail/${vInfo.supplier_number}/${key2}`;
-  const deleteURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
+  // const deleteURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
   const patchURL = `http://localhost:8080/vendor/${vInfo.supplier_number}`;
   const uploadImag = `http://localhost:8080/file-upload/img/${vInfo.supplier_number}`;
   const getImg = `http://localhost:8080/file-upload/img/${vInfo.supplier_number}`
@@ -85,7 +85,7 @@ function VendorPortal_User() {
           remarks: x.remarks
         });
       });
-      console.log(vInfo);
+      // console.log(vInfo);
     } else {
       setVInfo({
         supplier_number: vInfo.supplier_number,
@@ -446,7 +446,7 @@ function VendorPortal_User() {
                 // placeholder="Created Date"
                 name="created_date"
                 disabled={hide.disabled}
-                value={vInfo.created_date.slice(0, 10)}
+                value={vInfo.created_date}
                 onChange={handleChange}
                 onFocus={(e) => {
                   e.target.type = "date";
@@ -516,27 +516,7 @@ function VendorPortal_User() {
                 onChange={handleChange}
               />
             </div>
-
-            {/* <div className="conn">
-              <label for="">Inactive Date</label>
-              <input
-                type="text"
-                // placeholder="Inactive Date"
-                name="inactive_date"
-                disabled={hide.disabled}
-                value={vInfo.inactive_date.slice(0, 10)}
-                onChange={handleChange}
-                onFocus={(e) => {
-                  e.target.type = "date";
-                }}
-                onBlur={(e) => {
-                  e.target.type = "text";
-                }}
-              />
-            </div> */}
-
             <div className="conn">
-
               <label for="">Certificate Registrastion Date</label>
               <input
                 type="text"

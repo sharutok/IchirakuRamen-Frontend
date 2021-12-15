@@ -1,43 +1,16 @@
-// .neonText {
-//   animation: flicker 1.5s infinite alternate;
-//   color: rgb(10, 0, 0);
-// }
-
-// h1 {
-//   font-size: 4.2rem;
-// }
-
-// /* Flickering animation */
-// @keyframes flicker {
-//   0%,
-//   18%,
-//   22%,
-//   25%,
-//   53%,
-//   57%,
-//   100% {
-//     text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff,
-//       0 0 40px rgb(16, 17, 17), 0 0 80px rgb(16, 17, 17),
-//       0 0 90px rgb(16, 17, 17), 0 0 100px rgb(16, 17, 17),
-//       0 0 150px rgb(16, 17, 17);
-//   }
-//   20%,
-//   24%,
-//   55% {
-//     text-shadow: none;
-//   }
-// }
-
-// /* Additional styling */
-
 h2 {
   font-size: 1.8rem;
 }
 .dock {
+  // background-color: cadetblue;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
   font-size: 18px;
   font-family: "Helvetica Neue", sans-serif;
-  //   background-color: #010a01;
   height: 100%;
+  margin-top: 5rem;
   h1,
   h2 {
     text-align: center;

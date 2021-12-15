@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Chip, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   AiOutlineDelete,
   AiOutlineInfoCircle,
 } from "react-icons/ai";
+import Pagination from '@mui/material/Pagination';
 import { ImHome } from "react-icons/im"
-import { GoReport } from "react-icons/go"
+import { GoGraph } from "react-icons/go"
 import { HiUserGroup } from "react-icons/hi"
 import { BiMailSend } from "react-icons/bi";
 import AccountMenu from "./AccountMenu";
-import "../CSS/VendorPortalAccounts.scss";
 import bcrypt from 'bcryptjs'
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -19,7 +18,6 @@ import Cookies from "universal-cookie";
 import Badge from '@mui/material/Badge';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import AddIcon from '@mui/icons-material/Add';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -28,10 +26,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import LoadingSkeleton from "./LoadingSkeleton";
 import DatasetGraph2 from "./DatasetGraph2";
-const cookie = new Cookies()
+import "../CSS/VendorPortalAccounts.scss";
+import NoDataMessage from "./NoDataMessage";
+import DataSetGraph from "./DataSetGraph";
 function VendorPortalAccounts() {
+  const cookie = new Cookies()
   const user = cookie.get("user")
   const plant = cookie.get("plant")
+  const role = cookie.get('role')
   let lastArrValue;
   let postsPerPage = 10;
   let pageArr = [];
@@ -89,23 +91,43 @@ function VendorPortalAccounts() {
 
 
   const getData = async () => {
-    const res = await fetch(getAllURL)
-    const data = await res.json();
-    setValue(data.allVendor.slice(0, 10));
-    setPost(data.allVendor);
-    // console.log(post);
+    try {
+      const res = await fetch(getAllURL)
+      const data = await res.json();
+      if (data) {
+        setValue(data.allVendor.slice(0, 10));
+        setPost(data.allVendor);
+        // console.log(data.allVendor);
+      }
+      else {
+        setValue([])
+        setPost([])
+      }
+    }
+    catch {
+      setValue([])
+      setPost([])
+    }
   };
 
   const getMSMEVendorData = async () => {
     const res = await fetch(msmeVendorDetails)
     const data = await res.json();
-    console.log(data.msme_vendors);
-    setValue(data.msme_vendors.slice(0, 10));
-    setPost(data.msme_vendors);
-
+    if (data) {
+      setValue(data.msme_vendors.slice(0, 10));
+      setPost(data.msme_vendors);
+      console.log(data.msme_vendors);
+    }
+    else {
+      setValue([])
+      setPost([])
+      return (
+        <>
+          <NoDataMessage />
+        </>
+      )
+    }
   }
-
-
   useEffect(() => {
     getData();
   }, []);
@@ -121,13 +143,16 @@ function VendorPortalAccounts() {
         const res = await fetch(getSmartSearchURL);
         const data = await res.json();
         if (data.result) {
+
           setValue(data.result.slice(0, 10));
           setPost(data.result);
         } else {
+
           getData();
         }
       } catch (error) {
-        console.log({ error });
+        getData();
+        // console.log({ error });
       }
     }
   }
@@ -224,14 +249,14 @@ function VendorPortalAccounts() {
             </DialogActions>
           </Dialog>
         </div>
-        <div className="smart-search">
+        {display.status && <div className="smart-search">
           <input
             onKeyPress={handleEnterKeyPress}
             value={smartSearch}
             onChange={handleSmartSearchChange}
             placeholder="Search"
           />
-        </div>
+        </div>}
         <div className="bifercation">
           <div className="control-panel">
             {/* <Tooltip title="Logout" disableInteractive placement="right"> */}
@@ -302,20 +327,26 @@ function VendorPortalAccounts() {
                   status: true,
                 });
               }}>
-              <Tooltip title="Status" placement="right" disableInteractive  >
+              <Tooltip title="Reports" placement="right" disableInteractive  >
                 <IconButton style={{
                   color: active.status && "#e7eaf6",
                   backgroundColor: active.status && "#113f67",
                   borderRadius: active.status && "5px"
                 }}>
-                  <GoReport />
+                  <GoGraph />
                 </IconButton>
               </Tooltip>
             </h3>
 
-
           </div>
 
+          {
+            !display.status &&
+            <div className="graphs">
+              <DatasetGraph2 status={status} plant={plant} post={post} />
+              {["PLANT HEAD", "ADMIN"].includes(role) && <DataSetGraph />}
+            </div>
+          }
           {loading ? <form className="right-view">
             <div className="acc_page_label">
               {display.status && <label>Vendor Number</label>}
@@ -367,78 +398,28 @@ function VendorPortalAccounts() {
                   }
                 })}
             </div>
-            {display.status && <div className="page">
+            {/* {display.status && <div className="page">
               <label >Page:<span style={{ color: "grey" }}>{page}</span></label>
-            </div>}
-            {display.status && <div className="pagination">
-              {pageArr.map((no) => {
-                return (
-                  <>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        showPosts(no);
-                        setPage(no)
-                      }}
-                    >
-                      {no}
-                    </button>
+            </div>} */}
 
-                  </>
-                );
-              })}
-              {lastArrValue && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    showPosts(lastArrValue);
-                    setPage(lastArrValue)
-                  }}
-                  type=""
-                >
-                  ....{lastArrValue}
-                </button>
-              )}
-            </div>}
+            {display.status && <Pagination
+              variant="outlined"
+              shape="rounded"
+              className="pagination"
+              hideNextButton={true}
+              hidePrevButton={true}
+              onClick={(e) => {
+                let no = (e.target.textContent);
+                showPosts(no);
+                setPage(no)
+              }}
+              count={lastArrValue}
+            />}
 
           </form> : < LoadingSkeleton />}
 
-          {!display.status && <>
-            <div className="status-module">
-              {!display.status && <div className="DatasetGraph2">
-                <DatasetGraph2 status={status} plant={plant} post={post} />
-              </div>}
-              <div className="badge-container" >
-                <div className="badge">
-                  <Badge max={9999} badgeContent={status.pending} color="primary" className="badge-icons">
-                    <PendingActionsIcon fontSize="medium" sx={{ color: "red" }} />
-                  </Badge>
-                  <label for="">Pending</label>
-                </div>
-                <div className="badge">
-                  <Badge badgeContent={status.approved} color="primary" className="badge-icons">
-                    <DoneAllIcon fontSize="medium" color="success" />
-                  </Badge>
-                  <label for="">Approved</label>
-                </div>
-                <div className="badge">
-                  <Badge badgeContent={status.new_record} color="primary" className="badge-icons">
-                    <AddIcon fontSize="medium" sx={{ color: "lightblue" }} />
-                  </Badge>
-                  <label for="">New Record</label>
-                </div>
-                <div className="badge">
-                  <Badge max={9999} badgeContent={(post.length)} color="primary" className="badge-icons">
-                    <FormatListBulletedIcon fontSize="medium" sx={{ color: "black" }} />
-                  </Badge>
-                  <label for="">Total Records</label>
-                </div>
-              </div>
-            </div>
-          </>}
         </div>
       </div>
-
     </>
   );
 }
@@ -501,7 +482,7 @@ function Account_Page({
             disabled={true}
             type=""
             name=""
-            value={arr.certificate_no !== "" ? arr.certificate_no : "N/A"}
+            value={arr.certificate_no !== null ? arr.certificate_no : "N/A"}
           />
         )}
         {display.status && (
@@ -511,8 +492,14 @@ function Account_Page({
         {display.status && (
           <>
             <div>
-              <Tooltip arrow placement="top" title="Send Email" disableInteractive>
+              <Tooltip
+                style={{ cursor: arr.vendor_email ? "not-allowed" : "pointer" }}
+                arrow placement="top" title="Send Email" disableInteractive>
                 <button
+                  style={{
+                    pointerEvents: arr.vendor_email === null ? "none" : "auto",
+                    backgroundColor: arr.vendor_email === null ? "#E0E0E0" : "white",
+                  }}
                   className="link-send"
                   type=""
                   onClick={(e) => {
@@ -520,7 +507,8 @@ function Account_Page({
                     handleClickOpen()
                     handleSendMail(arr.vendor_email, arr.supplier_number);
                   }}>
-                  <BiMailSend />
+                  <BiMailSend
+                  />
                 </button>
               </Tooltip>
             </div>

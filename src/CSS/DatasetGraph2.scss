@@ -1,0 +1,14 @@
+$wid: 37rem;
+$hit: 32.2rem;
+$radius: 10px;
+.bar2 {
+  border-radius: $radius;
+  box-shadow: 5px 5px 15px rgb(194, 194, 194);
+  width: $wid;
+  height: $hit;
+  padding: 1rem;
+  // background-color: darkgoldenrod;
+}
+.chart2 {
+  // background-color: firebrick;
+}

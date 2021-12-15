@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,17 +11,21 @@ import VendorPortalAccVendorDetails from "./VendorPortalAccVendorDetails";
 import ResetPassword from "./ResetPassword";
 import VendorPortalVendor from "./VendorPortalVendor";
 import ErrorMessage from './ErrorMessage'
-import { Online, Offline } from "react-detect-offline";
+import {
+  // Online
+  Offline
+} from "react-detect-offline";
 import InternetConnect from "./InternetConnect";
 import awl_logo from "../Images/AWL_logo_new.png";
 import Cookies from 'universal-cookie'
 import "../CSS/App.scss";
 import InValidAcessMessage from "./InValidAccessMessage";
 import UserPermissionAccess from "./UserPermissionAccess";
+
 function App() {
   const cookie = new Cookies()
   const user = cookie.get("user")
-  const plant = cookie.get('plant')
+  // const plant = cookie.get('plant')
   // console.log(user, plant);
   return (
     <>
@@ -30,8 +34,8 @@ function App() {
       </Offline>
       <Router>
         <Link to style={{ textDecoration: "none" }}>
-          <div className="top-heading">
-            <img src={awl_logo} />
+          <div className="top-heading headers">
+            <img src={awl_logo} alt="adorlogo" />
             <h1>Ministry of <span>M</span>icro, <span>S</span>mall and <span>M</span>edium <span>E</span>nterprises</h1>
           </div>
         </Link>
@@ -45,6 +49,7 @@ function App() {
           <Route path="*" element={<ErrorMessage />} />
         </Routes>
       </Router>
+
     </>
   );
 }

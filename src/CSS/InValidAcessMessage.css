@@ -1,0 +1,15 @@
+.access-denied {
+  position: absolute;
+  margin-top: 7rem;
+  width: 100%;
+}
+
+.access-denied .loading-button {
+  margin: auto;
+  display: block;
+}
+
+.access-denied h1 {
+  text-align: center;
+}
+/*# sourceMappingURL=InValidAcessMessage.css.map */

@@ -4,22 +4,22 @@ import Cookies from 'universal-cookie'
 import DataSetGraph from './DataSetGraph';
 import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import "../CSS/UserPermissionAccess.scss"
 const getUser = `http://localhost:8080/login/user/all`
 const newUser = `http://localhost:8080/login/create/user`
-const UpdateUser = `http://localhost:8080/`
-const DeleteUser = `http://localhost:8080/`
+// const UpdateUser = `http://localhost:8080/`
+// const DeleteUser = `http://localhost:8080/`
 
 function UserPermissionAccess() {
     const cookie = new Cookies()
-    const user = cookie.get("user")
-    const plant = cookie.get('plant')
+    // const user = cookie.get("user")
+    // const plant = cookie.get('plant')
     const role = cookie.get('role')
     const [snack, setSnack] = useState({
         content: "", state: false
@@ -121,7 +121,7 @@ function UserPermissionAccess() {
                         <button className="vendor_form_del" onClick={() => setHide(!hide)} type="">Close</button>
                     </div>
                 </div>}
-            <DataSetGraph />
+            {/* <DataSetGraph /> */}
             <div className="grid-view">
                 <table>
                     <h4 className="create_new" onClick={() => setHide(!hide)}>create new user</h4>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import logo from "../Images/AWL_logo_new.png";
 import { Box, TextField, Button, Snackbar } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+// import { LoadingButton } from "@mui/lab";
 import axios from 'axios'
 function ResetPassword() {
   const [data, setData] = useState({
@@ -25,7 +25,7 @@ function ResetPassword() {
   )
   const URLToSendOTP = "http://localhost:8080/login/password/otp"
   const URLToRestPassword = "http://localhost:8080/login/password/reset"
-  const URLFindUserByEmail = `http://localhost:8080/login/`
+  const URLFindUserByEmail = `http://localhost:8080/login/email`
   const url = `http://localhost:3000/login/`
   function handleOnchange(e) {
     const name = e.target.name
@@ -38,13 +38,13 @@ function ResetPassword() {
     e.preventDefault()
     if (data.email !== "") {
       try {
-        const response = await fetch(`${URLFindUserByEmail}${data.email}`)
+        const response = await fetch(`${URLFindUserByEmail}/${data.email}`)
         const resData = await response.json()
-        console.log(resData.user.email, data.email);
+        console.log("sendOtp");
+        // console.log(resData.email);
 
-        if (resData.user.email === data.email) {
+        if (resData.email === data.email) {
           console.log("yes");
-
           await axios.post(URLToSendOTP, { email: data.email })
           setMess({
             content: "OTP sent", states: true,
@@ -76,10 +76,10 @@ function ResetPassword() {
   async function resetPassword(e) {
     e.preventDefault()
 
-    const response = await fetch(`${URLFindUserByEmail}${data.email}`)
+    const response = await fetch(`${URLFindUserByEmail}/${data.email}`)
     const resData = await response.json()
     console.log(resData);
-    if (resData.user.otp === data.otp) {
+    if (resData.otp === data.otp) {
       console.log("in otp");
       if (data.password === data.verify_password) {
         console.log("in password");

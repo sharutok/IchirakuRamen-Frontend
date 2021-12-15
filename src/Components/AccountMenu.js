@@ -9,15 +9,15 @@ import IconButton from '@mui/material/IconButton';
 import Cookies from 'universal-cookie'
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import { Link } from 'react-router-dom'
 
 export default function PositionedMenu() {
     const cookies = new Cookies()
-    const plant = cookies.get("plant")
+    // const plant = cookies.get("plant")
     const user = cookies.get("user")
     const role = cookies.get("role")
-    const [auth, setAuth] = React.useState((cookies.get("user")))
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [opens, setOpens] = React.useState(false);
     // const handleClose = () => {
@@ -66,10 +66,9 @@ export default function PositionedMenu() {
                     horizontal: 'left',
                 }}
             >
-                {/* <MenuItem onClick={handleClose} >{auth}</MenuItem> */}
                 <MenuItem>
                     <Stack direction="row" spacing={1}>
-                        <Chip style={{ textTransform: "uppercase", fontWeight: "bolder", padding: "0 2rem 0 0" }} icon={<FaceIcon />} label={auth} variant="outlined" />
+                        <Chip style={{ textTransform: "uppercase", fontWeight: "bolder", padding: "0 2rem 0 0" }} icon={<FaceIcon />} label={user} variant="outlined" />
                     </Stack>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
